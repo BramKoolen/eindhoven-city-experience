@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Base.Eindhoven" parent="@style/Theme.MaterialComponents.Light">
+
+        <!--Material type attributes-->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.Eindhoven.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.Eindhoven.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.Eindhoven.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.Eindhoven.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.Eindhoven.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.Eindhoven.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.Eindhoven.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.Eindhoven.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Eindhoven.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.Eindhoven.Body2</item>
+        <item name="textAppearanceButton">@style/TextAppearance.Eindhoven.Button</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Eindhoven.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.Eindhoven.Overline</item>
+
+        <!--Material color attributes-->
+        <item name="colorPrimary">@color/cherry_red</item>
+        <item name="colorPrimaryVariant">@color/cherry_red_variant</item>
+        <item name="colorPrimaryDark">@color/cherry_red_dark</item>
+        <item name="colorButtonNormal">@color/cherry_red</item>
+        <item name="colorBackgroundFloating">@color/light_pink</item>
+        <item name="colorSecondary">@color/light_pink</item>
+        <item name="colorSurface">@color/white</item>
+    </style>
+</resources>
