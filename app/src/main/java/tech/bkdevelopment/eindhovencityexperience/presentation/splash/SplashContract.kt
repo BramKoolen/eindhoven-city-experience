@@ -1,7 +1,17 @@
-package tech.bkdevelopment.eindhovencityexperience.presentation
+package tech.bkdevelopment.eindhovencityexperience.presentation.splash
 
-/**
- * BANANANANANANA
- */
 interface SplashContract {
+
+    interface Presenter {
+
+        fun startPresenting()
+        fun stopPresenting()
+        fun close()
+    }
+
+    interface Navigator {
+
+        fun navigateToTours()
+        fun close()
+    }
 }
