@@ -48,12 +48,16 @@ class TourListPresenter @Inject constructor(
     }
 
     private fun onToursFetched(tours: List<TourViewModel>) {
-        view.hideLoadingPlaceHolder()
-        view.hideErrorStateList()
-        view.showTours(tours)
+        if(tours.isNotEmpty()) {
+            view.hideLoadingPlaceHolder()
+            view.hideErrorStateList()
+            view.showTours(tours)
+        }else{
+            onToursFetchedFailed(null)
+        }
     }
 
-    private fun onToursFetchedFailed(throwable: Throwable) {
+    private fun onToursFetchedFailed(throwable: Throwable?) {
         view.hideLoadingPlaceHolder()
         view.showErrorStateList()
         Timber.e(throwable)
