@@ -17,7 +17,7 @@ interface SplashActivityModule {
     interface Bindings {
 
         @Binds
-        fun bindMainActivity(splashActivity: SplashActivity): Activity
+        fun bindActivity(splashActivity: SplashActivity): Activity
 
         @Binds
         fun bindPresenter(splashPresenter: SplashPresenter): SplashContract.Presenter

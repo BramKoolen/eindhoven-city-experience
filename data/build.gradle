@@ -12,14 +12,29 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        debug {}
-        qaTest {}
-        release {}
+        debug {
+            buildConfigField "String", "SPACE_ID", "\"kv1tx2taa3oe\""
+            buildConfigField "String", "SPACE_ACCESS_TOKEN", "\"hMtSF-PTd1mkV5EPdoAgEj-bXmKO0c85BgKheprqHiM\""
+        }
+        qaTest {
+            buildConfigField "String", "SPACE_ID", "\"kv1tx2taa3oe\""
+            buildConfigField "String", "SPACE_ACCESS_TOKEN", "\"hMtSF-PTd1mkV5EPdoAgEj-bXmKO0c85BgKheprqHiM\""
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            buildConfigField "String", "SPACE_ID", "\"kv1tx2taa3oe\""
+            buildConfigField "String", "SPACE_ACCESS_TOKEN", "\"hMtSF-PTd1mkV5EPdoAgEj-bXmKO0c85BgKheprqHiM\""
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
 }
 
 dependencies {
     implementation project(':domain')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     // @Inject
     implementation "javax.inject:javax.inject:1"
@@ -46,6 +61,15 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
     implementation "com.google.firebase:firebase-core:$firebase_core_version"
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+
+    //Contentful
+    kapt("com.contentful.vault:compiler:$contentful_version") {
+        exclude group: 'com.google.guava', module: 'guava'
+    }
+    kapt "com.contentful.vault:core:$contentful_version"
+    api "com.contentful.vault:core:$contentful_version"
+
 }
 
 sourceCompatibility = "7"

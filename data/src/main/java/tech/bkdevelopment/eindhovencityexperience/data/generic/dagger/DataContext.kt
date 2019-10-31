@@ -1,4 +1,4 @@
-package tech.bkdevelopment.eindhovencityexperience.generic.dagger
+package tech.bkdevelopment.eindhovencityexperience.data.generic.dagger
 
 import android.content.Context
 import javax.inject.Qualifier

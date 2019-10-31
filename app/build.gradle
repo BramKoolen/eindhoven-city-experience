@@ -33,17 +33,28 @@ android {
     }
     buildTypes {
         debug {
-            minifyEnabled false
+            debuggable true
             versionNameSuffix "-debug"
             applicationIdSuffix ".debug"
         }
         qaTest {
             signingConfig signingConfigs.debug
+            initWith buildTypes.debug
+            matchingFallbacks = ['debug']
+
+            debuggable false
             minifyEnabled true
+            shrinkResources true
+            useProguard true
+            versionNameSuffix "-qatest"
             applicationIdSuffix ".qaTest"
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
             minifyEnabled true
+            shrinkResources true
+            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
