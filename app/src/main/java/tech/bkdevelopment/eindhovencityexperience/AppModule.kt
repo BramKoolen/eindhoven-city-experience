@@ -4,11 +4,26 @@ import android.app.Application
 import android.content.Context
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import tech.bkdevelopment.eindhovencityexperience.generic.dagger.AppContext
-import tech.bkdevelopment.eindhovencityexperience.generic.dagger.DataContext
+import tech.bkdevelopment.eindhovencityexperience.data.generic.dagger.DataContext
+import tech.bkdevelopment.eindhovencityexperience.data.generic.room.RoomEceDatabase
+import tech.bkdevelopment.eindhovencityexperience.data.tour.ContentfulRoomTourRepository
+import tech.bkdevelopment.eindhovencityexperience.domain.tour.data.TourRepository
+import javax.inject.Singleton
 
 @Module(includes = [AppModule.Bindings::class])
 class AppModule {
+
+    @Provides
+    @DataContext
+    fun provideDataContext(application: EceApplication): Context = application
+
+    @Singleton
+    @Provides
+    fun provideDatabase(@DataContext context: Context): RoomEceDatabase {
+        return RoomEceDatabase.getInstance(context)
+    }
 
     @Module
     interface Bindings{
@@ -18,10 +33,9 @@ class AppModule {
         fun bindApplicationContext(eceApplication: EceApplication): Context
 
         @Binds
-        @DataContext
-        fun bindDataApplicationContext(eceApplication: EceApplication): Context
+        fun bindApplication(eceApplication: EceApplication): Application
 
         @Binds
-        fun bindApplication(eceApplication: EceApplication): Application
+        fun bindTourRepository(contentfulRoomTourRepository: ContentfulRoomTourRepository): TourRepository
     }
 }
