@@ -26,6 +26,7 @@ class TourListPresenter @Inject constructor(
     }
 
     override fun onTourClicked(tourViewModel: TourViewModel) {
+        //todo check if there already tour started
         navigator.navigateToTourDetails(tourViewModel)
     }
 
@@ -43,13 +44,13 @@ class TourListPresenter @Inject constructor(
             .map { tourMapper.mapToTourViewModels(it) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { view.showLoadingPlaceHolder() }
+            .doOnSubscribe { view.showLoadingIndicator() }
             .subscribe(::onToursFetched, ::onToursFetchedFailed)
     }
 
     private fun onToursFetched(tours: List<TourViewModel>) {
         if(tours.isNotEmpty()) {
-            view.hideLoadingPlaceHolder()
+            view.hideLoadingIndicator()
             view.hideErrorStateList()
             view.showTours(tours)
         }else{
@@ -58,7 +59,7 @@ class TourListPresenter @Inject constructor(
     }
 
     private fun onToursFetchedFailed(throwable: Throwable?) {
-        view.hideLoadingPlaceHolder()
+        view.hideLoadingIndicator()
         view.showErrorStateList()
         Timber.e(throwable)
     }

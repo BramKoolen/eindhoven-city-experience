@@ -26,10 +26,6 @@ class TourResponse : Resource() {
 
     @JvmField
     @Field
-    var time: Int? = null
-
-    @JvmField
-    @Field
     var extraTourItemText: String? = null
 
     @JvmField

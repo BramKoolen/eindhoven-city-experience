@@ -26,7 +26,6 @@ class TourContentulMapper @Inject constructor(
                 description.orEmpty(),
                 thumbnail?.httpsUrl(),
                 icon?.httpsUrl(),
-                time ?: 0,
                 storyContentulMapper.mapToStories(story),
                 extraTourItemText.orEmpty(),
                 extraTourItemIcon?.httpsUrl(),

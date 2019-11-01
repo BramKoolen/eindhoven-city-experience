@@ -4,8 +4,8 @@ interface TourListContract {
 
     interface View {
 
-        fun showLoadingPlaceHolder()
-        fun hideLoadingPlaceHolder()
+        fun showLoadingIndicator()
+        fun hideLoadingIndicator()
         fun showErrorStateList()
         fun hideErrorStateList()
         fun showTours(tourViewModels: List<TourViewModel>)

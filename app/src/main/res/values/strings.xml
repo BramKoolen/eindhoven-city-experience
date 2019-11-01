@@ -2,8 +2,7 @@
     <string name="app_name">Eindhoven city experience</string>
 
     <!--tours -->
-    <string name="tours_title">Eindhoven city tours</string>
-    <string name="tours_sub_title">De beste interactieve \n stadstour door Eindhoven</string>
+    <string name="tours_sub_title">De beste interactieve \n stadstours door Eindhoven</string>
     <string name="tours_dialog_title">Whoops!</string>
     <string name="tours_dialog_body">Je kunt niet twee tours tegelijk doen. Stop eerst de andere tour voordat je deze kunt starten.</string>
     <string name="tour_dialog_close">Sluiten</string>

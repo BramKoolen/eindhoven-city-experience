@@ -3,7 +3,6 @@ package tech.bkdevelopment.eindhovencityexperience.presentation.tour.tourlist
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.Address
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.Tour
 import tech.bkdevelopment.eindhovencityexperience.presentation.story.StoryMapper
-import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 class TourMapper @Inject constructor(private val storyMapper: StoryMapper) {
@@ -16,7 +15,8 @@ class TourMapper @Inject constructor(private val storyMapper: StoryMapper) {
                 it.smallDescription,
                 it.thumbnailUrl,
                 it.iconUrl,
-                it.remainingTourTime,
+                0,//todo
+                1000,//todo
                 storyMapper.mapToStoryViewModels(it.stories),
                 it.extraTourItemLabel,
                 it.extraTourItemIconUrl,
