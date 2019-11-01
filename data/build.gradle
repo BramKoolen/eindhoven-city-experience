@@ -36,15 +36,15 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    // @Inject
+    //@Inject
     implementation "javax.inject:javax.inject:1"
 
-    // Reactive
+    //Reactive
     implementation "io.reactivex.rxjava2:rxjava:$reactive_x_version_java"
     implementation "io.reactivex.rxjava2:rxkotlin:$reactive_x_version_kotlin"
     implementation "io.reactivex.rxjava2:rxandroid:$reactive_x_version_android"
 
-    // Dagger
+    //Dagger
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
     implementation "com.google.dagger:dagger:$dagger_version"
@@ -52,10 +52,10 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
-    // Timber
+    //Timber
     implementation "com.jakewharton.timber:timber:$timber_version"
 
-    // Room
+    //Room
     api "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     kapt "androidx.room:room-compiler:$room_version"

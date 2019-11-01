@@ -8,7 +8,6 @@ data class Tour(
     val smallDescription: String,
     val thumbnailUrl: String?,
     val iconUrl: String?,
-    val remainingTourTime: Int,
     val stories: List<Story>,
     val extraTourItemLabel: String,
     val extraTourItemIconUrl: String?,

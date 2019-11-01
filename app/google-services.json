@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "537979538420",
+    "firebase_url": "https://eindhoven-city-experience.firebaseio.com",
+    "project_id": "eindhoven-city-experience",
+    "storage_bucket": "eindhoven-city-experience.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537979538420:android:c6e96b363f8d3b7a0387a1",
+        "android_client_info": {
+          "package_name": "tech.bkdevelopment.eindhovencityexperience"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537979538420-9qasn7ibd933ik9le5dh4f325sr2pg7r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn57bbPGNv3SdNM_AelarT7o32c_S5S8s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537979538420-9qasn7ibd933ik9le5dh4f325sr2pg7r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537979538420:android:9250e4b112edb9360387a1",
+        "android_client_info": {
+          "package_name": "tech.bkdevelopment.eindhovencityexperience.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537979538420-9qasn7ibd933ik9le5dh4f325sr2pg7r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn57bbPGNv3SdNM_AelarT7o32c_S5S8s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537979538420-9qasn7ibd933ik9le5dh4f325sr2pg7r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537979538420:android:4bf9980db5ef5b1f0387a1",
+        "android_client_info": {
+          "package_name": "tech.bkdevelopment.eindhovencityexperience.qatest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537979538420-9qasn7ibd933ik9le5dh4f325sr2pg7r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn57bbPGNv3SdNM_AelarT7o32c_S5S8s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537979538420-9qasn7ibd933ik9le5dh4f325sr2pg7r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

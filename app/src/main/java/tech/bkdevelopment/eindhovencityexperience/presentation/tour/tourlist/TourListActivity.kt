@@ -61,12 +61,12 @@ class TourListActivity : DaggerAppCompatActivity(), TourListContract.View {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun showLoadingPlaceHolder() {
-        // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showLoadingIndicator() {
+        tourListLoadingIndicator.visibility = View.VISIBLE
     }
 
-    override fun hideLoadingPlaceHolder() {
-        // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun hideLoadingIndicator() {
+        tourListLoadingIndicator.visibility = View.GONE
     }
 
     override fun showErrorStateList() {
