@@ -1,4 +1,4 @@
-package tech.bkdevelopment.eindhovencityexperience.presentation.tour.tourlist
+package tech.bkdevelopment.eindhovencityexperience.presentation.tour
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -20,6 +20,6 @@ data class TourViewModel(
     val parkingAddress: AddressViewModel?,
     val startAddress: AddressViewModel?,
     val longDescription: String,
-    val cafesOnThisRoute: List<AddressViewModel?>,
-    val state: TourState
+    val cafesOnThisRoute: List<AddressViewModel>,
+    var state: TourState
 ) : Parcelable

@@ -4,6 +4,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.GetTours
+import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourMapper
+import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -49,11 +51,11 @@ class TourListPresenter @Inject constructor(
     }
 
     private fun onToursFetched(tours: List<TourViewModel>) {
-        if(tours.isNotEmpty()) {
+        if (tours.isNotEmpty()) {
             view.hideLoadingIndicator()
             view.hideErrorStateList()
             view.showTours(tours)
-        }else{
+        } else {
             onToursFetchedFailed(null)
         }
     }

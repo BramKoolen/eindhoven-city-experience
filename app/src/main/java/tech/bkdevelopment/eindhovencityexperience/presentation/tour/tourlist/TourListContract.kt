@@ -1,5 +1,7 @@
 package tech.bkdevelopment.eindhovencityexperience.presentation.tour.tourlist
 
+import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourViewModel
+
 interface TourListContract {
 
     interface View {

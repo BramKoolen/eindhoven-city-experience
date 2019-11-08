@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/grid_2">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/tourDetailDetailCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/grid_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/grid_2">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tourDetailDetailCardTitle"
+                style="@style/TextAppearance.Eindhoven.Headline5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="@dimen/grid_2"
+                android:text="@string/tour_detail_detail_card_title"
+                android:textColor="?attr/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/tourDetailDetailCardDistanceIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_2"
+                android:layout_marginTop="@dimen/grid_2"
+                android:src="@drawable/ic_directions_walk_black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tourDetailDetailCardTitle" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tourDetailDetailCardDistanceText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_1"
+                android:textAppearance="@style/TextAppearance.Eindhoven.Body2"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/tourDetailDetailCardDistanceIcon"
+                app:layout_constraintStart_toEndOf="@+id/tourDetailDetailCardDistanceIcon"
+                app:layout_constraintTop_toTopOf="@+id/tourDetailDetailCardDistanceIcon"
+                tools:text="6.5 km resterend" />
+
+            <ImageView
+                android:id="@+id/tourDetailDetailCardTimeIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_2"
+                android:layout_marginTop="@dimen/grid_2"
+                android:src="@drawable/ic_access_time_black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tourDetailDetailCardDistanceIcon" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tourDetailDetailCardTimeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_1"
+                android:textAppearance="@style/TextAppearance.Eindhoven.Body2"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/tourDetailDetailCardTimeIcon"
+                app:layout_constraintStart_toEndOf="@+id/tourDetailDetailCardTimeIcon"
+                app:layout_constraintTop_toTopOf="@+id/tourDetailDetailCardTimeIcon"
+                tools:text="45 minuten resterend" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/tourdetailDetailCardStoryContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/grid_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tourDetailDetailCardTimeIcon">
+
+                <ImageView
+                    android:id="@+id/tourDetailDetailCardStoryIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_location_on_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tourDetailDetailCardStoryText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:textAppearance="@style/TextAppearance.Eindhoven.Body2"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tourDetailDetailCardStoryIcon"
+                    app:layout_constraintStart_toEndOf="@+id/tourDetailDetailCardStoryIcon"
+                    app:layout_constraintTop_toTopOf="@+id/tourDetailDetailCardStoryIcon"
+                    tools:text="14 stories resterend" />
+
+                <ImageView
+                    android:id="@+id/tourDetailDetailCardstoryArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_keyboard_arrow_down_black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tourDetailDetailCardStoryIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tourDetailDetailCardStoryIcon" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tourDetailDetailCardStoryRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/tourDetailDetailCardStoryIcon"
+                    tools:listitem="@layout/list_item_tour_detail_extented"
+                    tools:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tourDetailDetailCardStoryShowOnMapButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_4"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:text="@string/tour_detail_detail_show_on_map"
+                    android:textAppearance="@style/TextAppearance.Eindhoven.Button"
+                    android:textColor="@color/cherry_red"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tourDetailDetailCardStoryRecycler"
+                    tools:visibility="visible" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/tourDetailDetailCardCustomIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="@dimen/grid_2"
+                android:layout_marginTop="@dimen/grid_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tourdetailDetailCardStoryContainer"
+                tools:src="@drawable/ic_location_on_black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tourDetailDetailCardCustomText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_1"
+                android:textAppearance="@style/TextAppearance.Eindhoven.Body2"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/tourDetailDetailCardCustomIcon"
+                app:layout_constraintStart_toEndOf="@+id/tourDetailDetailCardCustomIcon"
+                app:layout_constraintTop_toTopOf="@+id/tourDetailDetailCardCustomIcon"
+                tools:text="Kindvriendelijk" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/tourdetailDetailCardCafesContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/grid_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tourDetailDetailCardCustomIcon">
+
+                <ImageView
+                    android:id="@+id/tourDetailDetailCardCafesIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_local_cafe_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tourDetailDetailCardCafesText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:textAppearance="@style/TextAppearance.Eindhoven.Body2"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tourDetailDetailCardCafesIcon"
+                    app:layout_constraintStart_toEndOf="@+id/tourDetailDetailCardCafesIcon"
+                    app:layout_constraintTop_toTopOf="@+id/tourDetailDetailCardCafesIcon"
+                    tools:text="2 cafes op deze route" />
+
+                <ImageView
+                    android:id="@+id/tourDetailDetailCardCafesArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_keyboard_arrow_down_black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tourDetailDetailCardCafesIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tourDetailDetailCardCafesIcon" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tourDetailDetailCardCafesRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/tourDetailDetailCardCafesIcon"
+                    tools:listitem="@layout/list_item_tour_detail_extented"
+                    tools:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tourDetailDetailCardCafesShowOnMapButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_4"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:text="@string/tour_detail_detail_show_on_map"
+                    android:textAppearance="@style/TextAppearance.Eindhoven.Button"
+                    android:textColor="@color/cherry_red"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tourDetailDetailCardCafesRecycler"
+                    tools:visibility="visible" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/tourDetailAddressCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/grid_2"
+        app:layout_constraintTop_toBottomOf="@+id/tourDetailDetailCard">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tourDetailAddressCardTitle"
+                style="@style/TextAppearance.Eindhoven.Headline5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="@dimen/grid_2"
+                android:text="@string/tour_detail_address_card_title"
+                android:textColor="?attr/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/tourDetailAddressCardStartAddressLocationIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_2"
+                android:layout_marginTop="@dimen/grid_2"
+                android:src="@drawable/ic_timeline_black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tourDetailAddressCardTitle" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tourDetailAddressCardStartAddressLocationText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_1"
+                android:textAppearance="@style/TextAppearance.Eindhoven.Body2"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/tourDetailAddressCardStartAddressLocationIcon"
+                app:layout_constraintStart_toEndOf="@+id/tourDetailAddressCardStartAddressLocationIcon"
+                app:layout_constraintTop_toTopOf="@+id/tourDetailAddressCardStartAddressLocationIcon"
+                tools:text="Klokgebouw 300, 5617 AD Eindhoven" />
+
+            <ImageView
+                android:id="@+id/tourDetailAddressCardParkingLocationIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_2"
+                android:layout_marginTop="@dimen/grid_2"
+                android:layout_marginBottom="@dimen/grid_2"
+                android:src="@drawable/ic_local_parking_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tourDetailAddressCardStartAddressLocationIcon" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tourDetailAddressCardParkingLocationText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_1"
+                android:textAppearance="@style/TextAppearance.Eindhoven.Body2"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/tourDetailAddressCardParkingLocationIcon"
+                app:layout_constraintStart_toEndOf="@+id/tourDetailAddressCardParkingLocationIcon"
+                app:layout_constraintTop_toTopOf="@+id/tourDetailAddressCardParkingLocationIcon"
+                tools:text="Philitelaan, 5651 GW Eindhoven" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/tourDetailDescriptionCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/grid_2"
+        app:layout_constraintTop_toBottomOf="@+id/tourDetailAddressCard">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tourDetailDescriptionCardTitle"
+                style="@style/TextAppearance.Eindhoven.Headline5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="@dimen/grid_2"
+                android:text="@string/tour_detail_description_card_title"
+                android:textColor="?attr/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/tourDetailDescriptionCardIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_2"
+                android:layout_marginTop="@dimen/grid_2"
+                android:src="@drawable/ic_description_black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tourDetailDescriptionCardTitle" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tourDetailDescriptionCardText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="@dimen/grid_2"
+                android:layout_marginBottom="@dimen/grid_2"
+                android:textAppearance="@style/TextAppearance.Eindhoven.Body2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tourDetailDescriptionCardIcon"
+                app:layout_constraintTop_toTopOf="@+id/tourDetailDescriptionCardIcon"
+                tools:text="body text" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

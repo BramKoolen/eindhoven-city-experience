@@ -9,7 +9,7 @@ import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.Tour
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TourState
 import javax.inject.Inject
 
-class TourContentulMapper @Inject constructor(
+class TourContentfulMapper @Inject constructor(
     private val storyContentulMapper: StoryContentulMapper,
     private val contentfulSubstring: ContentfulSubstring
 ) {

@@ -14,6 +14,7 @@ import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.list_item_tour_card.view.*
 import tech.bkdevelopment.eindhovencityexperience.R
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TourState
+import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourViewModel
 import timber.log.Timber
 
 class TourListAdapter : RecyclerView.Adapter<TourListAdapter.TourViewHolder>() {

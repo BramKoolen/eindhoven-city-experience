@@ -6,6 +6,7 @@ import dagger.android.support.AndroidSupportInjectionModule
 import tech.bkdevelopment.eindhovencityexperience.data.sync.contentful.ContentfulModule
 import tech.bkdevelopment.eindhovencityexperience.presentation.splash.SplashActivityModule
 import tech.bkdevelopment.eindhovencityexperience.presentation.tour.tourlist.TourListActivityModule
+import tech.bkdevelopment.eindhovencityexperience.presentation.tour.tourdetail.TourDetailActivityModule
 import javax.inject.Singleton
 
 @Singleton
@@ -15,7 +16,8 @@ import javax.inject.Singleton
         AppModule::class,
         SplashActivityModule::class,
         TourListActivityModule::class,
-        ContentfulModule::class
+        ContentfulModule::class,
+        TourDetailActivityModule::class
     ]
 )
 interface AppComponent : AndroidInjector<EceApplication> {
