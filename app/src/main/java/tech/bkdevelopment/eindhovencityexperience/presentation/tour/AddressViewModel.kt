@@ -1,4 +1,4 @@
-package tech.bkdevelopment.eindhovencityexperience.presentation.tour.tourlist
+package tech.bkdevelopment.eindhovencityexperience.presentation.tour
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

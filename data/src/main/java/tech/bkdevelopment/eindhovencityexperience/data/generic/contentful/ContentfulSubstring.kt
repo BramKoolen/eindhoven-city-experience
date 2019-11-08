@@ -9,10 +9,10 @@ class ContentfulSubstring @Inject constructor() {
     }
 
     fun subStringContentfulLocationLat(location: String): Double {
-        return location.substringAfter("{lon=").substringBefore(", lat=").toDouble()
+        return location.substringAfter("lat=").substringBefore("}").toDouble()
     }
 
     fun subStringContentfulLocationLong(location: String): Double {
-        return location.substringAfter("lat=").substringBefore("}").toDouble()
+        return location.substringAfter("{lon=").substringBefore(", lat=").toDouble()
     }
 }

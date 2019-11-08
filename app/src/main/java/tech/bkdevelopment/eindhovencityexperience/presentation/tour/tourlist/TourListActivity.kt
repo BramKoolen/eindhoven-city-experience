@@ -11,6 +11,7 @@ import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_tour_list.*
 import kotlinx.android.synthetic.main.view_internet_error_state.*
 import tech.bkdevelopment.eindhovencityexperience.R
+import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourViewModel
 import javax.inject.Inject
 
 class TourListActivity : DaggerAppCompatActivity(), TourListContract.View {

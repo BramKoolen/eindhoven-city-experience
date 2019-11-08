@@ -1,4 +1,4 @@
-package tech.bkdevelopment.eindhovencityexperience.presentation.tour.tourlist
+package tech.bkdevelopment.eindhovencityexperience.presentation.tour
 
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.Address
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.Tour
@@ -23,15 +23,27 @@ class TourMapper @Inject constructor(private val storyMapper: StoryMapper) {
                 mapToAddressViewModel(it.parkingAddress),
                 mapToAddressViewModel(it.startAddress),
                 it.longDescription,
-                it.cafesOnThisRoute.map { mapToAddressViewModel(it) },
+                it.cafesOnThisRoute.map { mapToAddressViewModelNotNull(it) },
                 it.state
             )
         }
     }
 
+    private fun mapToAddressViewModelNotNull(address: Address): AddressViewModel {
+        return AddressViewModel(
+            address.name,
+            address.lat,
+            address.long
+        )
+    }
+
     private fun mapToAddressViewModel(address: Address?): AddressViewModel? {
         if (address != null) {
-            return AddressViewModel(address.name, address.lat, address.long)
+            return AddressViewModel(
+                address.name,
+                address.lat,
+                address.long
+            )
         }
         return null
     }

@@ -1,14 +1,36 @@
 <resources>
+    <!--Generic -->
     <string name="app_name">Eindhoven city experience</string>
-
+    <string name="dialog_default_title">Whoops!</string>
+    <string name="dialog_default_close">Sluiten</string>
     <!--tours -->
     <string name="tours_sub_title">De beste interactieve \n stadstours door Eindhoven</string>
-    <string name="tours_dialog_title">Whoops!</string>
     <string name="tours_dialog_body">Je kunt niet twee tours tegelijk doen. Stop eerst de andere tour voordat je deze kunt starten.</string>
-    <string name="tour_dialog_close">Sluiten</string>
 
     <!-- internet error state -->
     <string name="internet_error_state_try_again_button">Probeer opnieuw</string>
     <string name="internet_error_state_title">Whoops!</string>
     <string name="internet_error_state_body">Er is geen internetverbinding. \n Controleer je verbinding en probeer opnieuw.</string>
+
+    <!-- tour details -->
+    <string name="tour_detail_detail_card_title">Details</string>
+    <string name="tour_detail_address_card_title">start adres</string>
+    <string name="tour_detail_description_card_title">omschrijving</string>
+    <string name="tour_detail_detail_card_cafes">%1$s Cafes op deze route</string>
+    <string name="tour_detail_detail_card_time">%1$s minuten resterend</string>
+    <string name="tour_detail_detail_card_distance">%1$s %2$s resterend</string>
+    <string name="tour_detail_detail_distance_meters">meter</string>
+    <string name="tour_detail_detail_distance_km">km</string>
+    <string name="tour_detail_detail_stories">%1$s stories resterend</string>
+    <string name="tour_detail_detail_show_on_map">Weergeven op kaart</string>
+
+    <!-- Tour details dialog -->
+    <string name="tour_detail_stop_tour_dialog_title">Tour wordt opgeslagen.</string>
+    <string name="tour_detail_stop_tour_dialog_body">Jammer dat je stopt. Gelukkig slaan wij je voortgang op zodat je de volgende keer weer verder kunt gaan.</string>
+    <string name="tour_detail_stop_tour_dialog_stop">Stoppen</string>
+    <string name="tour_detail_stop_tour_dialog_continue">Doorgaan</string>
+    <string name="tour_detail_permission_denied_dailog_body">Om gebruik te kunnen maken van de app, hebben we je locatie gegevens nodig.</string>
+    <string name="tour_detail_permission_denied_dialog_settings">Instellingen</string>
+    <string name="tour_detail_start_tour_error_dialog_body">Helaas je kunt deze tour nog niet starten. De afstand tot de tour is nog te groot.</string>
+
 </resources>

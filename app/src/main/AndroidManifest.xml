@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="tech.bkdevelopment.eindhovencityexperience">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:name=".EceApplication"
         android:allowBackup="true"
@@ -23,5 +26,8 @@
         </activity>
         <activity android:name=".presentation.MainActivity"/>
         <activity android:name=".presentation.tour.tourlist.TourListActivity"/>
+        <activity
+            android:name="tech.bkdevelopment.eindhovencityexperience.presentation.tour.tourdetail.TourDetailActivity"
+            android:theme="@style/Base.Eindhoven.TourDetail" />
     </application>
 </manifest>
