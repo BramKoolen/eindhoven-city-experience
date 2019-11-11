@@ -13,7 +13,7 @@ data class TourViewModel(
     val thumbnailUrl: String?,
     val iconUrl: String?,
     val remainingTourTimeInMinutes: Int,
-    val remainingDistance: Int,
+    val remainingDistanceInMeters: Int,
     val stories: List<StoryViewModel>,
     val extraTourItemLabel: String,
     val extraTourItemIconUrl: String?,

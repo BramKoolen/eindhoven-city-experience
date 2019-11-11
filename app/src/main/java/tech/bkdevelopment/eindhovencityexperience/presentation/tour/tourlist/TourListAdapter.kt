@@ -1,5 +1,6 @@
 package tech.bkdevelopment.eindhovencityexperience.presentation.tour.tourlist
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.LayoutInflater
@@ -54,12 +55,22 @@ class TourListAdapter : RecyclerView.Adapter<TourListAdapter.TourViewHolder>() {
                     .centerCrop()
                     .error(R.drawable.eindhoven_error)
                     .listener(object : RequestListener<Drawable> {
-                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<Drawable>?,
+                            isFirstResource: Boolean
+                        ): Boolean {
                             Timber.e(e)
                             return false
                         }
 
-                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean
+                        override fun onResourceReady(
+                            resource: Drawable?,
+                            model: Any?,
+                            target: Target<Drawable>?,
+                            dataSource: DataSource?,
+                            isFirstResource: Boolean
                         ): Boolean {
                             setTourItems(viewModel)
                             return false
@@ -82,7 +93,7 @@ class TourListAdapter : RecyclerView.Adapter<TourListAdapter.TourViewHolder>() {
             }
 
             if (tourViewModel.state == TourState.STARTED || tourViewModel.state == TourState.STOPPED) {
-                tourCardProgressLabel.text = "todo get data"
+                tourCardProgressLabel.text = createProgressString(context,tourViewModel)
                 tourCardProgressLabel.visibility = View.VISIBLE
             }
 
@@ -90,5 +101,13 @@ class TourListAdapter : RecyclerView.Adapter<TourListAdapter.TourViewHolder>() {
                 tourCardStartedImage.visibility = View.VISIBLE
             }
         }
+
+        private fun createProgressString(context: Context, tourViewModel: TourViewModel): String {
+            val unfinishedStories = context.getString(R.string.tour_list_progress_stories,tourViewModel.stories.filter { !it.completed }.size.toString())
+            val remainingDistance = context.getString(R.string.tour_list_progress_distance, tourViewModel.remainingDistanceInMeters.toString())
+            val remainingTime = context.getString(R.string.tour_list_progress_time,tourViewModel.remainingTourTimeInMinutes.toString())
+            return "$unfinishedStories - $remainingDistance - $remainingTime"
+        }
+
     }
 }

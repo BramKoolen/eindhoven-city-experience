@@ -1,14 +1,16 @@
 package tech.bkdevelopment.eindhovencityexperience.presentation.tour.tourdetail
 
+import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TourState
 import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourViewModel
 
 interface TourDetailContract {
 
     interface View {
 
-        val tour: TourViewModel?
+        val tourId: String?
+        var tour: TourViewModel?
 
-        fun showTourState(started: Boolean)
+        fun showTourState(tourState: TourState)
         fun showLocationPermissionDeniedExplanationDialog()
         fun showCantStartTourDialog()
         fun showStopTourDialog()

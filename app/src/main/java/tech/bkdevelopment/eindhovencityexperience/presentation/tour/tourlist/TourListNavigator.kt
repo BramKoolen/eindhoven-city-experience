@@ -13,6 +13,6 @@ class TourListNavigator @Inject constructor(private val activity: Activity) :
     }
 
     override fun navigateToTourDetails(tourViewModel: TourViewModel) {
-        activity.startActivity(TourDetailActivity.createIntent(activity, tourViewModel))
+        activity.startActivity(TourDetailActivity.createIntent(activity, tourViewModel.id))
     }
 }

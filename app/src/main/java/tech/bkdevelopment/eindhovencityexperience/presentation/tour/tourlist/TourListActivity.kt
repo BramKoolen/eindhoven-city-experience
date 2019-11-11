@@ -1,5 +1,6 @@
 package tech.bkdevelopment.eindhovencityexperience.presentation.tour.tourlist
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
@@ -7,6 +8,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.Window
+import android.widget.TextView
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_tour_list.*
 import kotlinx.android.synthetic.main.view_internet_error_state.*
@@ -34,8 +37,8 @@ class TourListActivity : DaggerAppCompatActivity(), TourListContract.View {
         internetErrorStateTryAgainButton.setOnClickListener { presenter.onErrorStateButtonClicked() }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         presenter.startPresenting()
     }
 
@@ -82,6 +85,21 @@ class TourListActivity : DaggerAppCompatActivity(), TourListContract.View {
     override fun showTours(tourViewModels: List<TourViewModel>) {
         tourListView.visibility = View.VISIBLE
         tourListAdapter.tourViewModels = tourViewModels
+    }
+
+    override fun showCantStartTwoToursError() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_default)
+        val title = dialog.findViewById(R.id.dialogTitle) as TextView
+        val body = dialog.findViewById(R.id.dialogBody) as TextView
+        val buttonNo = dialog.findViewById(R.id.dialogNo) as TextView
+        title.text = getString(R.string.dialog_default_title)
+        body.text = getString(R.string.tour_list_dialog_body)
+        buttonNo.text = getString(R.string.dialog_default_close)
+        buttonNo.setOnClickListener { dialog.dismiss() }
+        dialog.show()
     }
 
     companion object {

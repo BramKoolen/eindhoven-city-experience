@@ -16,6 +16,7 @@ import tech.bkdevelopment.eindhovencityexperience.domain.tour.data.TourRepositor
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.Tour
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TourState
 import javax.inject.Inject
+import kotlin.math.*
 
 class ContentfulRoomTourRepository @Inject constructor(
     private val vault: Vault,
@@ -30,9 +31,9 @@ class ContentfulRoomTourRepository @Inject constructor(
             fetchRoomTours(),
             fetchRoomStories()
         )
-            .map { (contentfulTours, tourStatusList, stories) ->
+            .map { (tourList, tourStatusList, stories) ->
                 setTourStatus(
-                    contentfulTours,
+                    tourList,
                     tourStatusList,
                     stories
                 )
@@ -44,20 +45,21 @@ class ContentfulRoomTourRepository @Inject constructor(
     }
 
     override fun updateTourStatus(tourId: String, tourState: TourState): Completable {
-        return database.roomToursDao().updateTourStatus(roomTourMapper.mapToRoomTourStatus(tourId,tourState))
+        return database.roomToursDao()
+            .updateTourStatus(roomTourMapper.mapToRoomTourStatus(tourId, tourState))
     }
 
     private fun setTourStatus(
-        contentfulTours: List<Tour>,
+        tourList: List<Tour>,
         tourStatusList: List<TourStatus>,
         stories: List<CompletedStory>
     ): List<Tour> {
         tourStatusList.map { tourStatus ->
-            contentfulTours.find { it.id == tourStatus.id }?.state =
+            tourList.find { it.id == tourStatus.id }?.state =
                 convertTourStatusStringtoEnum(tourStatus.status)
         }
-        contentfulTours.map { setStoryStatus(it.stories, stories) }
-        return contentfulTours
+        tourList.map { setStoryStatus(it.stories, stories) }
+        return tourList
     }
 
     private fun setStoryStatus(

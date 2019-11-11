@@ -11,6 +11,7 @@ interface TourListContract {
         fun showErrorStateList()
         fun hideErrorStateList()
         fun showTours(tourViewModels: List<TourViewModel>)
+        fun showCantStartTwoToursError()
     }
 
     interface Presenter {

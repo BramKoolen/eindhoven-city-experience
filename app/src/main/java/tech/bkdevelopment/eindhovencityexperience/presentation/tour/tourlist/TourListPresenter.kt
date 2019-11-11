@@ -4,6 +4,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.GetTours
+import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TourState
+import tech.bkdevelopment.eindhovencityexperience.generic.service.IsServiceRunning
+import tech.bkdevelopment.eindhovencityexperience.presentation.notification.ContinuousNotificationService
 import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourMapper
 import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourViewModel
 import timber.log.Timber
@@ -13,7 +16,8 @@ class TourListPresenter @Inject constructor(
     private val view: TourListContract.View,
     private val navigator: TourListContract.Navigator,
     private val getTours: GetTours,
-    private val tourMapper: TourMapper
+    private val tourMapper: TourMapper,
+    private val isServiceRunning: IsServiceRunning
 ) : TourListContract.Presenter {
 
     private var disposable: Disposable? = null
@@ -28,8 +32,12 @@ class TourListPresenter @Inject constructor(
     }
 
     override fun onTourClicked(tourViewModel: TourViewModel) {
-        //todo check if there already tour started
-        navigator.navigateToTourDetails(tourViewModel)
+        if(!isServiceRunning(ContinuousNotificationService::class.java) || tourViewModel.state == TourState.STARTED) {
+            navigator.navigateToTourDetails(tourViewModel)
+        }
+        else{
+            view.showCantStartTwoToursError()
+        }
     }
 
     override fun onMoreButtonClicked() {

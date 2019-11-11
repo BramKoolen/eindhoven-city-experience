@@ -16,6 +16,7 @@ import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_tour_detail.*
 import kotlinx.android.synthetic.main.view_tour_detail.*
 import tech.bkdevelopment.eindhovencityexperience.R
+import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TourState
 import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourViewModel
 import javax.inject.Inject
 
@@ -24,8 +25,14 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
     @Inject
     lateinit var presenter: TourDetailContract.Presenter
 
-    override val tour: TourViewModel?
-        get() = intent.getParcelableExtra(TOUR_EXTRA) as TourViewModel
+    override val tourId: String?
+        get() = intent.getStringExtra(TOUR_ID_EXTRA)
+
+    override var tour: TourViewModel? = null
+        set(value) {
+            field = value
+            setTourDetailText()
+        }
 
     private val tourDetailCafeAdapter by lazy { TourDetailCafeAdapter() }
 
@@ -39,11 +46,8 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        setTourDetailText()
-
-        tourDetailFloatingButton.setOnClickListener { presenter.onStartStopTourButtonClicked() }
     }
+
 
     private fun setTourDetailText() {
         Glide
@@ -60,8 +64,7 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
 
         tourDetailDetailCardDistanceText.text = getString(
             R.string.tour_detail_detail_card_distance,
-            tour?.remainingDistance.toString(),
-            "Meters"
+            tour?.remainingDistanceInMeters.toString()
         )
 
         tourDetailDetailCardTimeText.text = getString(
@@ -102,6 +105,10 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
         } else {
             tourDetailDetailCardCafesArrow.visibility = View.GONE
         }
+
+        tour?.state?.let { showTourState(it) }
+        tourDetailFloatingButton.visibility = View.VISIBLE
+        tourDetailFloatingButton.setOnClickListener { presenter.onStartStopTourButtonClicked() }
     }
 
     private fun onCafesArrowClicked() {
@@ -118,8 +125,8 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         presenter.startPresenting()
     }
 
@@ -136,8 +143,8 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
         return true
     }
 
-    override fun showTourState(started: Boolean) {
-        if (started) {
+    override fun showTourState(tourState: TourState) {
+        if (tourState == TourState.STARTED) {
             tourDetailFloatingButton.setImageResource(R.drawable.ic_stop_black)
         } else {
             tourDetailFloatingButton.setImageResource(R.drawable.ic_play_arrow_black)
@@ -189,11 +196,17 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
         title.text = getString(R.string.tour_detail_stop_tour_dialog_title)
         body.text = getString(R.string.tour_detail_stop_tour_dialog_body)
         buttonYes.text = getString(R.string.tour_detail_stop_tour_dialog_continue)
-        buttonNo.text = getString(R.string.dialog_default_close)
+        buttonNo.text = getString(R.string.tour_detail_stop_tour_dialog_stop)
         buttonYes.setOnClickListener { dialog.dismiss() }
-        buttonNo.setOnClickListener { dialog.dismiss() }
+        buttonNo.setOnClickListener { onDialogStopTourButtonClicked(dialog) }
         dialog.show()
     }
+
+    private fun onDialogStopTourButtonClicked(dialog: Dialog) {
+        dialog.dismiss()
+        presenter.onDialogStopTourButtonClicked()
+    }
+
 
     override fun onStop() {
         presenter.stopPresenting()
@@ -202,18 +215,19 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
 
     companion object {
 
-        private const val TOUR_EXTRA = "intentTourExtra"
+        private const val TOUR_ID_EXTRA = "intentTour_id_Extra"
 
-        fun createIntent(context: Context, tour: TourViewModel): Intent {
+        fun createIntent(context: Context, tourId: String): Intent {
             return Intent(context, TourDetailActivity::class.java).apply {
-                putExtra(TOUR_EXTRA, tour)
+                putExtra(TOUR_ID_EXTRA, tourId)
             }
         }
 
         fun createSettingsIntent(context: Context): Intent {
             return Intent(
                 Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                Uri.parse("package:" + context.packageName))
+                Uri.parse("package:" + context.packageName)
+            )
                 .addCategory(Intent.CATEGORY_DEFAULT)
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
