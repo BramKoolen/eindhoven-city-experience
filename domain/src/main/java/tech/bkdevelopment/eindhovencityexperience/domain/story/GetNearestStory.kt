@@ -1,34 +1,27 @@
 package tech.bkdevelopment.eindhovencityexperience.domain.story
 
 import io.reactivex.Observable
-import io.reactivex.rxkotlin.Observables
-import tech.bkdevelopment.eindhovencityexperience.domain.location.GetCurrentLocation
 import tech.bkdevelopment.eindhovencityexperience.domain.location.model.Location
 import tech.bkdevelopment.eindhovencityexperience.domain.story.model.Story
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.GetTourById
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.Tour
 import javax.inject.Inject
-import kotlin.math.cos
-import kotlin.math.sqrt
+import kotlin.math.*
 
 class GetNearestStory @Inject constructor(
     private val getTourById: GetTourById,
-    private val getCurrentLocation: GetCurrentLocation
-) {
+    private val getDistanceBetweenTwoLocations: GetDistanceBetweenTwoLocations) {
 
-    operator fun invoke(tourId: String): Observable<Pair<Story, Double>> {
-        return Observables.combineLatest(
-            getTourById(tourId),
-            getCurrentLocation()
-        )
-            .map { (tour, currentLocation) -> getNearestStory(tour, currentLocation) }
+    operator fun invoke(tourId: String, currentLocation: Location): Observable<Pair<Story, Int>> {
+        return getTourById(tourId)
+            .map { getNearestStory(it, currentLocation) }
     }
 
-    private fun getNearestStory(tour: Tour, location: Location): Pair<Story, Double> {
+    private fun getNearestStory(tour: Tour, location: Location): Pair<Story, Int> {
         val notFinishedStories = tour.stories.filter { !it.completed }
-        var nearestStoryPair: Pair<Story, Double> = Pair(
+        var nearestStoryPair: Pair<Story, Int> = Pair(
             tour.stories.first(),
-            getDistanceInMeter(
+            getDistanceBetweenTwoLocations(
                 location.lat,
                 location.long,
                 tour.stories.first().lat,
@@ -36,18 +29,11 @@ class GetNearestStory @Inject constructor(
             )
         )
         notFinishedStories.forEach {
-            val distance = getDistanceInMeter(location.lat, location.long, it.lat, it.long)
+            val distance = getDistanceBetweenTwoLocations(location.lat, location.long, it.lat, it.long)
             if (distance < nearestStoryPair.second){
                 nearestStoryPair = Pair(it,distance)
             }
         }
         return nearestStoryPair
-    }
-
-    private fun getDistanceInMeter(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
-        val r = 6371 // km
-        val x = (lon2 - lon1) * cos((lat1 + lat2) / 2)
-        val y = lat2 - lat1
-        return sqrt(x * x + y * y) * r
     }
 }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="tech.bkdevelopment.eindhovencityexperience">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -29,5 +30,10 @@
         <activity
             android:name="tech.bkdevelopment.eindhovencityexperience.presentation.tour.tourdetail.TourDetailActivity"
             android:theme="@style/Base.Eindhoven.TourDetail" />
+
+        <service
+            android:name="tech.bkdevelopment.eindhovencityexperience.presentation.notification.ContinuousNotificationService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 </manifest>

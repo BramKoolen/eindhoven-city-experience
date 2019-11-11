@@ -3,9 +3,13 @@
     <string name="app_name">Eindhoven city experience</string>
     <string name="dialog_default_title">Whoops!</string>
     <string name="dialog_default_close">Sluiten</string>
-    <!--tours -->
-    <string name="tours_sub_title">De beste interactieve \n stadstours door Eindhoven</string>
-    <string name="tours_dialog_body">Je kunt niet twee tours tegelijk doen. Stop eerst de andere tour voordat je deze kunt starten.</string>
+
+    <!-- tour list -->
+    <string name="tour_list_sub_title">De beste interactieve \n stadstours door Eindhoven</string>
+    <string name="tour_list_dialog_body">Je kunt niet twee tours tegelijk doen. Stop eerst de andere tour voordat je deze kunt starten.</string>
+    <string name="tour_list_progress_time">%1$s minuten</string>
+    <string name="tour_list_progress_distance">%1$s meter</string>
+    <string name="tour_list_progress_stories">%1$s stories</string>
 
     <!-- internet error state -->
     <string name="internet_error_state_try_again_button">Probeer opnieuw</string>
@@ -18,9 +22,7 @@
     <string name="tour_detail_description_card_title">omschrijving</string>
     <string name="tour_detail_detail_card_cafes">%1$s Cafes op deze route</string>
     <string name="tour_detail_detail_card_time">%1$s minuten resterend</string>
-    <string name="tour_detail_detail_card_distance">%1$s %2$s resterend</string>
-    <string name="tour_detail_detail_distance_meters">meter</string>
-    <string name="tour_detail_detail_distance_km">km</string>
+    <string name="tour_detail_detail_card_distance">%1$s meter resterend</string>
     <string name="tour_detail_detail_stories">%1$s stories resterend</string>
     <string name="tour_detail_detail_show_on_map">Weergeven op kaart</string>
 
@@ -32,5 +34,18 @@
     <string name="tour_detail_permission_denied_dailog_body">Om gebruik te kunnen maken van de app, hebben we je locatie gegevens nodig.</string>
     <string name="tour_detail_permission_denied_dialog_settings">Instellingen</string>
     <string name="tour_detail_start_tour_error_dialog_body">Helaas je kunt deze tour nog niet starten. De afstand tot de tour is nog te groot.</string>
+
+    <!-- continuous notifications -->
+    <string name="continuous_notification_body_placeholder">begin te lopen naar de dichtstbijzijnde story</string>
+    <string name="continuous_notification_body_locked">Nog %1$s meter lopen</string>
+    <string name="continuous_notification_body_unlocked">Open story</string>
+    <string name="continuous_notification_channel_name">Afstand tot story </string>
+    <string name="continuous_notification_channel_description">Bekijk je afstand tot de dichtstbijzijnde locactie. Daarnaast zie je ook af je dicht bij genoeg bent op de story te openen.</string>
+
+    <!-- oudside geofence area notifications -->
+    <string name="oudside_geofence_area_notification_title">Afwijking van de route.</string>
+    <string name="oudside_geofence_area_notification_body">Wil je stoppen met de tour?</string>
+    <string name="oudside_geofence_area_notification_channel_name">Afwijking van route</string>
+    <string name="oudside_geofence_area_notification_channel_description">Wanneer je locatie afwijkt van de route worden er notificaties verstuurd</string>
 
 </resources>
