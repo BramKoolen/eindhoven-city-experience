@@ -1,13 +1,6 @@
 package tech.bkdevelopment.eindhovencityexperience.presentation.tour.tourdetail
 
-import android.Manifest
 import android.app.Activity
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -18,7 +11,6 @@ import tech.bkdevelopment.eindhovencityexperience.domain.story.GetNearestStory
 import tech.bkdevelopment.eindhovencityexperience.domain.story.model.Story
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.GetTourById
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.UpdateTourStatus
-import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.Tour
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TourState
 import tech.bkdevelopment.eindhovencityexperience.presentation.notification.ContinuousNotificationService
 import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourMapper
@@ -46,14 +38,14 @@ class TourDetailPresenter @Inject constructor(
 
     override fun onStartStopTourButtonClicked() {
         if (view.tour?.state != TourState.STARTED) {
-            checkLocationPermission()
+            view.checkLocationPermissions()
         } else {
             view.showStopTourDialog()
         }
     }
 
     override fun onMapButtonClicked() {
-        navigator.navigateToMap()
+        view.tour?.let { navigator.navigateToMap(it) }
     }
 
     override fun onDialogSettingsButtonClicked() {
@@ -64,11 +56,19 @@ class TourDetailPresenter @Inject constructor(
         view.tour?.let { updateTourStatus(it, TourState.STOPPED) }
     }
 
+    override fun onLocationPermissionGranted() {
+        getCurrentLocation()
+    }
+
+    override fun onLocationPermissionDenied() {
+        view.showLocationPermissionDeniedExplanationDialog()
+    }
+
     override fun stopPresenting() {
         compositeDisposable.clear()
     }
 
-    private fun getTour(tourId: String){
+    private fun getTour(tourId: String) {
         getTourById(tourId)
             .map { tourMapper.mapToTourVieModel(it) }
             .subscribeOn(Schedulers.io())
@@ -77,34 +77,12 @@ class TourDetailPresenter @Inject constructor(
             .addTo(compositeDisposable)
     }
 
-    private fun onTourFetched(tour: TourViewModel){
+    private fun onTourFetched(tour: TourViewModel) {
         view.tour = tour
     }
 
-    private fun onTourFetchedFailed(throwable: Throwable){
+    private fun onTourFetchedFailed(throwable: Throwable) {
         Timber.i(throwable)
-        //todo create error state
-    }
-
-    private fun checkLocationPermission() {
-        Dexter.withActivity(activity)
-            .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-            .withListener(object : PermissionListener {
-                override fun onPermissionGranted(response: PermissionGrantedResponse) {
-                    getCurrentLocation()
-                }
-
-                override fun onPermissionDenied(response: PermissionDeniedResponse) {
-                    view.showLocationPermissionDeniedExplanationDialog()
-                }
-
-                override fun onPermissionRationaleShouldBeShown(
-                    permission: PermissionRequest?,
-                    token: PermissionToken?
-                ) {
-                    token?.continuePermissionRequest()
-                }
-            }).check()
     }
 
     private fun getCurrentLocation() {
@@ -159,7 +137,7 @@ class TourDetailPresenter @Inject constructor(
                                 activity, tour
                             )
                         )
-                        //todo navigate to mapview
+                        navigator.navigateToMap(tour)
                     } else {
                         view.showTourState(TourState.STOPPED)
                         view.tour?.state = TourState.STOPPED

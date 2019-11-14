@@ -1,5 +1,6 @@
 package tech.bkdevelopment.eindhovencityexperience.presentation.tour.tourdetail
 
+import android.Manifest
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -12,6 +13,12 @@ import android.view.View
 import android.view.Window
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_tour_detail.*
 import kotlinx.android.synthetic.main.view_tour_detail.*
@@ -207,6 +214,26 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
         presenter.onDialogStopTourButtonClicked()
     }
 
+    override fun checkLocationPermissions() {
+        Dexter.withActivity(this)
+            .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+            .withListener(object : PermissionListener {
+                override fun onPermissionGranted(response: PermissionGrantedResponse) {
+                    presenter.onLocationPermissionGranted()
+                }
+
+                override fun onPermissionDenied(response: PermissionDeniedResponse) {
+                    presenter.onLocationPermissionDenied()
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permission: PermissionRequest?,
+                    token: PermissionToken?
+                ) {
+                    token?.continuePermissionRequest()
+                }
+            }).check()
+    }
 
     override fun onStop() {
         presenter.stopPresenting()
@@ -215,21 +242,12 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
 
     companion object {
 
-        private const val TOUR_ID_EXTRA = "intentTour_id_Extra"
+        private const val TOUR_ID_EXTRA = "intentTourIdExtra"
 
         fun createIntent(context: Context, tourId: String): Intent {
             return Intent(context, TourDetailActivity::class.java).apply {
                 putExtra(TOUR_ID_EXTRA, tourId)
             }
-        }
-
-        fun createSettingsIntent(context: Context): Intent {
-            return Intent(
-                Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                Uri.parse("package:" + context.packageName)
-            )
-                .addCategory(Intent.CATEGORY_DEFAULT)
-                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
     }
 }

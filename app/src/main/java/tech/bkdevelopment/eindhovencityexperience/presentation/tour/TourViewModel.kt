@@ -14,7 +14,7 @@ data class TourViewModel(
     val iconUrl: String?,
     val remainingTourTimeInMinutes: Int,
     val remainingDistanceInMeters: Int,
-    val stories: List<StoryViewModel>,
+    var stories: List<StoryViewModel>,
     val extraTourItemLabel: String,
     val extraTourItemIconUrl: String?,
     val parkingAddress: AddressViewModel?,

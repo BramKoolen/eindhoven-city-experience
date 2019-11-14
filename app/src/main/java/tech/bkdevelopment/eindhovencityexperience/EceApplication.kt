@@ -1,5 +1,9 @@
 package tech.bkdevelopment.eindhovencityexperience
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import io.reactivex.disposables.Disposable
@@ -39,5 +43,17 @@ class EceApplication : DaggerApplication() {
                 { Timber.i("content updated") },
                 { Timber.e("content update failed: $it") }
             )
+    }
+
+    companion object {
+
+        fun createSettingsIntent(context: Context): Intent {
+            return Intent(
+                Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                Uri.parse("package:" + context.packageName)
+            )
+                .addCategory(Intent.CATEGORY_DEFAULT)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
     }
 }

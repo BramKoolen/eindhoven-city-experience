@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="125dp"
+    android:layout_margin="@dimen/grid_1">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mapStoryCardTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_1"
+            android:textAppearance="@style/TextAppearance.Eindhoven.Headline6"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1. Start Strijp-S" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mapStoryCardDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_1"
+            android:textAppearance="@style/TextAppearance.Eindhoven.Body2"
+            android:textColor="@color/black_60"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mapStoryCardTitle"
+            tools:text="Start van de Strijp-S tour" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mapStoryCardDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.Eindhoven.Body2"
+            android:textColor="@color/black_60"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mapStoryCardDescription"
+            tools:text="283 meter lopen" />
+
+        <ImageView
+            android:id="@+id/mapStoryCardImage"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:layout_marginBottom="@dimen/grid_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:src="@drawable/ic_lock_outline_black" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

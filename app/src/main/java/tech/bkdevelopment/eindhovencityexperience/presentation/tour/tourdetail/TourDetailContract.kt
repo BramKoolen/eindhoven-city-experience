@@ -14,6 +14,7 @@ interface TourDetailContract {
         fun showLocationPermissionDeniedExplanationDialog()
         fun showCantStartTourDialog()
         fun showStopTourDialog()
+        fun checkLocationPermissions()
     }
 
     interface Presenter {
@@ -23,12 +24,14 @@ interface TourDetailContract {
         fun onMapButtonClicked()
         fun onDialogSettingsButtonClicked()
         fun onDialogStopTourButtonClicked()
+        fun onLocationPermissionGranted()
+        fun onLocationPermissionDenied()
         fun stopPresenting()
     }
 
     interface Navigator {
 
-        fun navigateToMap()
+        fun navigateToMap(tour: TourViewModel)
         fun navigateToPermissionSettings()
     }
 }

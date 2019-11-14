@@ -10,7 +10,6 @@ import tech.bkdevelopment.eindhovencityexperience.R
 import tech.bkdevelopment.eindhovencityexperience.generic.extension.getBitmapFromVectorDrawable
 import javax.inject.Inject
 
-
 class ContinuousNotificationBuilder @Inject constructor() {
 
     private var notificationManager: NotificationManager? = null
@@ -23,9 +22,9 @@ class ContinuousNotificationBuilder @Inject constructor() {
         createNotificationChannel(context)
 
         val largeIcon = if (continuousNotification.isUnlocked) {
-            R.drawable.ic_lock_open_green
+            context.getDrawable(R.drawable.ic_lock_open_green)
         } else {
-            R.drawable.ic_lock_outline_black
+            context.getDrawable(R.drawable.ic_lock_outline_black)
         }
 
         return NotificationCompat.Builder(
@@ -35,9 +34,9 @@ class ContinuousNotificationBuilder @Inject constructor() {
             .setContentTitle(continuousNotification.title)
             .setContentText(continuousNotification.body)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setLargeIcon(context.getBitmapFromVectorDrawable(largeIcon))
+            .setLargeIcon(largeIcon?.let { context.getBitmapFromVectorDrawable(it) })
             .setOngoing(true)
-            //.setContentIntent(pendingIntent) todo navigate to map or story
+            //.setContentIntent(pendingIntent) TODO navigate to map or story
             .build()
     }
 

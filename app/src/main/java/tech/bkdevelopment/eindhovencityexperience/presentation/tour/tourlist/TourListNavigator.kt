@@ -9,7 +9,7 @@ class TourListNavigator @Inject constructor(private val activity: Activity) :
     TourListContract.Navigator {
 
     override fun navigateToAboutThisApp() {
-        //todo
+        //TODO
     }
 
     override fun navigateToTourDetails(tourViewModel: TourViewModel) {
