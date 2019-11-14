@@ -47,5 +47,15 @@
     <string name="oudside_geofence_area_notification_body">Wil je stoppen met de tour?</string>
     <string name="oudside_geofence_area_notification_channel_name">Afwijking van route</string>
     <string name="oudside_geofence_area_notification_channel_description">Wanneer je locatie afwijkt van de route worden er notificaties verstuurd</string>
+    
+    
+    <!-- map -->
+    <string name="map_story_card_distance">Nog %1$s meter lopen</string>
+    <string name="map_not_close_enough_to_story_dialog_body">Je bent nog niet dichtbij genoeg om deze story te kunnen openen.</string>
+    <string name="map_tour_finished_dialog_title">Klaar!</string>
+    <string name="map_tour_finished_dialog_body">Dit was de laatste story van deze tour. Je kunt de story opnieuw bekijken of de tour afsluiten.</string>
+    <string name="map_start_tour_title">Start je tour!</string>
+    <string name="map_start_tour_body">Om deze story te openen moet je eerst de tour starten.</string>
+    <string name="map_start_tour_starten_button">Start tour</string>
 
 </resources>

@@ -30,7 +30,7 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="Base.Eindhoven.TourDetail" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Base.Eindhoven.NoActionBar" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
         <!--Material type attributes-->
         <item name="textAppearanceHeadline1">@style/TextAppearance.Eindhoven.Headline1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.Eindhoven.Headline2</item>

@@ -25,15 +25,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.MainActivity"/>
-        <activity android:name=".presentation.tour.tourlist.TourListActivity"/>
+        <activity android:name=".presentation.tour.tourlist.TourListActivity" />
         <activity
             android:name="tech.bkdevelopment.eindhovencityexperience.presentation.tour.tourdetail.TourDetailActivity"
-            android:theme="@style/Base.Eindhoven.TourDetail" />
+            android:theme="@style/Base.Eindhoven.NoActionBar" />
+        <activity
+            android:name=".presentation.map.MapActivity"
+            android:theme="@style/Base.Eindhoven.NoActionBar" />
 
         <service
             android:name="tech.bkdevelopment.eindhovencityexperience.presentation.notification.ContinuousNotificationService"
             android:enabled="true"
             android:exported="true" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDYgGzwSMsCGi2dA4Z8mblyQSSmGjw5j0U" />
     </application>
 </manifest>

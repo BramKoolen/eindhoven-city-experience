@@ -17,7 +17,8 @@ class StoryMapper @Inject constructor() {
                 it.mediaUrlList,
                 it.lat,
                 it.long,
-                it.completed
+                it.completed,
+                0
             )
         }
     }

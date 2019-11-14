@@ -15,5 +15,6 @@ data class StoryViewModel(
     val mediaUrlList: List<String>?,
     val lat: Double,
     val long: Double,
-    var completed: Boolean
+    var completed: Boolean,
+    var distanceToCurrentLocation: Int
 ) : Parcelable
