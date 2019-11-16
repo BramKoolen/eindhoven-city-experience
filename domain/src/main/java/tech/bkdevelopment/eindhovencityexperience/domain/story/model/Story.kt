@@ -4,10 +4,10 @@ data class Story(
     val id: String,
     val title: String,
     val summaryText: String,
-    val storyType: StoryType,
+    val storyType: MediaType,
     val summary: String,
     val description: String,
-    val mediaUrlList: List<String>?,
+    val mediaItems: List<Media>,
     val lat: Double,
     val long: Double,
     var completed: Boolean

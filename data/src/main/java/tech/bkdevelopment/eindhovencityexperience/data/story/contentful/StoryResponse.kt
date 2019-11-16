@@ -1,6 +1,5 @@
 package tech.bkdevelopment.eindhovencityexperience.data.story.contentful
 
-import com.contentful.vault.Asset
 import com.contentful.vault.ContentType
 import com.contentful.vault.Field
 import com.contentful.vault.Resource
@@ -30,7 +29,7 @@ class StoryResponse : Resource() {
 
     @JvmField
     @Field
-    var media: List<@JvmSuppressWildcards Asset>? = null
+    var media: List<@JvmSuppressWildcards Resource>? = null
 
     @JvmField
     @Field

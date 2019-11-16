@@ -14,5 +14,4 @@ interface RoomTourDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun updateTourStatus(tourStatus: TourStatus): Completable
-
 }

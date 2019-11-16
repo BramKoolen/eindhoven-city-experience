@@ -54,8 +54,8 @@ class MapStoryCardAdapter : RecyclerView.Adapter<MapStoryCardAdapter.StoryViewHo
                     } else {
                         mapStoryCardImage.setImageDrawable(context.getDrawable(R.drawable.ic_lock_outline_black))
                     }
-                    setOnClickListener { onStoryCardClicked?.invoke(viewModel) }
                 }
+                setOnClickListener { onStoryCardClicked?.invoke(viewModel) }
             }
         }
     }

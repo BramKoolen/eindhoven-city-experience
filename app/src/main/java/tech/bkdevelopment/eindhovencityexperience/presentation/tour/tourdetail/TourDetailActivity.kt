@@ -4,9 +4,7 @@ import android.Manifest
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -38,7 +36,7 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
     override var tour: TourViewModel? = null
         set(value) {
             field = value
-            setTourDetailText()
+            fillTourDetailLayout()
         }
 
     private val tourDetailCafeAdapter by lazy { TourDetailCafeAdapter() }
@@ -56,7 +54,7 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
     }
 
 
-    private fun setTourDetailText() {
+    private fun fillTourDetailLayout() {
         Glide
             .with(this)
             .load(tour?.thumbnailUrl)

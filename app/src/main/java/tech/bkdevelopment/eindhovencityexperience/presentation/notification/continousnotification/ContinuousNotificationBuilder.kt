@@ -3,11 +3,16 @@ package tech.bkdevelopment.eindhovencityexperience.presentation.notification.con
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import tech.bkdevelopment.eindhovencityexperience.R
 import tech.bkdevelopment.eindhovencityexperience.generic.extension.getBitmapFromVectorDrawable
+import tech.bkdevelopment.eindhovencityexperience.presentation.map.MapActivity
+import tech.bkdevelopment.eindhovencityexperience.presentation.story.StoryActivity
 import javax.inject.Inject
 
 class ContinuousNotificationBuilder @Inject constructor() {
@@ -21,11 +26,24 @@ class ContinuousNotificationBuilder @Inject constructor() {
 
         createNotificationChannel(context)
 
-        val largeIcon = if (continuousNotification.isUnlocked) {
-            context.getDrawable(R.drawable.ic_lock_open_green)
+        val intent: Intent?
+        val largeIcon: Drawable?
+
+        if (continuousNotification.isUnlocked) {
+            largeIcon = context.getDrawable(R.drawable.ic_lock_open_green)
+            intent = StoryActivity.createIntent(context, continuousNotification.story)
         } else {
-            context.getDrawable(R.drawable.ic_lock_outline_black)
+            largeIcon = context.getDrawable(R.drawable.ic_lock_outline_black)
+            intent = MapActivity.createIntent(context, continuousNotification.tourId)
         }
+
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
 
         return NotificationCompat.Builder(
             context,
@@ -34,9 +52,10 @@ class ContinuousNotificationBuilder @Inject constructor() {
             .setContentTitle(continuousNotification.title)
             .setContentText(continuousNotification.body)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setLargeIcon(largeIcon?.let { context.getBitmapFromVectorDrawable(it) })
+            .setLargeIcon(largeIcon.let { it?.let { it1 -> context.getBitmapFromVectorDrawable(it1) } })
             .setOngoing(true)
-            //.setContentIntent(pendingIntent) TODO navigate to map or story
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(pendingIntent)
             .build()
     }
 

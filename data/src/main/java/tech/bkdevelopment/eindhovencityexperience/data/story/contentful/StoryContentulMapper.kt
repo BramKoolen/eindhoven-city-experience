@@ -1,11 +1,11 @@
 package tech.bkdevelopment.eindhovencityexperience.data.story.contentful
 
-import com.contentful.vault.Asset
 import com.contentful.vault.Resource
 import tech.bkdevelopment.eindhovencityexperience.data.generic.contentful.ContentfulSubstring
 import tech.bkdevelopment.eindhovencityexperience.data.generic.contentful.httpsUrl
+import tech.bkdevelopment.eindhovencityexperience.domain.story.model.Media
+import tech.bkdevelopment.eindhovencityexperience.domain.story.model.MediaType
 import tech.bkdevelopment.eindhovencityexperience.domain.story.model.Story
-import tech.bkdevelopment.eindhovencityexperience.domain.story.model.StoryType
 import javax.inject.Inject
 
 class StoryContentulMapper @Inject constructor(private val contentfulSubstring: ContentfulSubstring) {
@@ -27,7 +27,7 @@ class StoryContentulMapper @Inject constructor(private val contentfulSubstring: 
                 remoteId(),
                 title.orEmpty(),
                 summaryText.orEmpty(),
-                mapToStoryType(storyType),
+                mapToMediaType(storyType),
                 contentfulSubstring.subStringContenfulRichTextItem(summary.orEmpty()),
                 contentfulSubstring.subStringContenfulRichTextItem(description.orEmpty()),
                 mapToMediaList(media),
@@ -38,29 +38,38 @@ class StoryContentulMapper @Inject constructor(private val contentfulSubstring: 
         }
     }
 
-    private fun mapToStoryType(storyType: String?): StoryType {
-        return when (storyType?.toLowerCase()) {
-            "text" -> StoryType.TEXT
-            "photo" -> StoryType.PHOTO
-            "audio" -> StoryType.AUDIO
-            "video" -> StoryType.VIDEO
-            "vr" -> StoryType.VR
-            else -> StoryType.TEXT
+    private fun mapToMediaType(mediaType: String?): MediaType {
+        return when (mediaType?.toLowerCase()) {
+            "text" -> MediaType.TEXT
+            "photo" -> MediaType.PHOTO
+            "audio" -> MediaType.AUDIO
+            "video" -> MediaType.VIDEO
+            "vr" -> MediaType.VR
+            else -> MediaType.TEXT
         }
     }
 
-    private fun mapToMediaList(list: List<@JvmSuppressWildcards Resource>?): List<String> {
+    private fun mapToMediaList(list: List<@JvmSuppressWildcards Resource>?): List<Media> {
         return list?.let {
             it.mapIndexedNotNull { _, resource: Resource ->
-                mapToAsset(resource)
+                when (resource) {
+                    is MediaResponse -> mapToMedia(resource)
+                    else -> null
+                }
             }
         } ?: emptyList()
     }
 
-    private fun mapToAsset(resource: Resource): String? {
-        return when (resource) {
-            is Asset -> resource.httpsUrl()
-            else -> null
+    private fun mapToMedia(response: MediaResponse): Media {
+        with(response) {
+            return Media(
+                remoteId(),
+                title.orEmpty(),
+                thumbnail?.httpsUrl(),
+                mapToMediaType(type),
+                mediaItem?.httpsUrl(),
+                source.orEmpty()
+            )
         }
     }
 }

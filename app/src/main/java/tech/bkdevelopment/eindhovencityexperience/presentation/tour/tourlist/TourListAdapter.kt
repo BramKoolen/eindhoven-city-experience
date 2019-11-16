@@ -54,6 +54,7 @@ class TourListAdapter : RecyclerView.Adapter<TourListAdapter.TourViewHolder>() {
                     .load(viewModel.thumbnailUrl)
                     .centerCrop()
                     .error(R.drawable.eindhoven_error)
+                    .skipMemoryCache(true)
                     .listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(
                             e: GlideException?,
@@ -99,6 +100,8 @@ class TourListAdapter : RecyclerView.Adapter<TourListAdapter.TourViewHolder>() {
 
             if (tourViewModel.state == TourState.STARTED) {
                 tourCardStartedImage.visibility = View.VISIBLE
+            }else{
+                tourCardStartedImage.visibility = View.GONE
             }
         }
 
