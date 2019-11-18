@@ -20,7 +20,7 @@ class OudsideGeofenceAreaNotificationBuilder @Inject constructor() {
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             0,
-            TourDetailActivity.createIntent(context, tourId),
+            TourDetailActivity.createIntent(context, tourId, true),
             PendingIntent.FLAG_UPDATE_CURRENT
         )
 

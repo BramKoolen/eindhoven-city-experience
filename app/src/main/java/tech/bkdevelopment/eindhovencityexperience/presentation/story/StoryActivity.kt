@@ -57,6 +57,14 @@ class StoryActivity : DaggerAppCompatActivity(), StoryContract.View {
         super.onStop()
     }
 
+    override fun onBackPressed() {
+        if (intent.getBooleanExtra(LAUNCH_FROM_NOTIFICATION_EXTRA, false) && intent.getStringExtra(TOUR_ID_EXTRA) != null) {
+            presenter.onBackPressedLaunchedFromNotification(intent.getStringExtra(TOUR_ID_EXTRA),true)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     private fun fillStoryLayout() {
         storyTitle.text = story?.title
         storyDescription.text = story?.summary
@@ -65,11 +73,20 @@ class StoryActivity : DaggerAppCompatActivity(), StoryContract.View {
 
     companion object {
 
+        private const val TOUR_ID_EXTRA = "intentTourIdExtra"
         private const val STORY_EXTRA = "intentStoryExtra"
+        private const val LAUNCH_FROM_NOTIFICATION_EXTRA = "intentLaunchFromNotificationExtra"
 
-        fun createIntent(context: Context, story: StoryViewModel): Intent {
+        fun createIntent(
+            context: Context,
+            tourId: String?,
+            story: StoryViewModel,
+            launchFromNotification: Boolean
+        ): Intent {
             return Intent(context, StoryActivity::class.java).apply {
+                putExtra(TOUR_ID_EXTRA, tourId)
                 putExtra(STORY_EXTRA, story)
+                putExtra(LAUNCH_FROM_NOTIFICATION_EXTRA, launchFromNotification)
             }
         }
     }

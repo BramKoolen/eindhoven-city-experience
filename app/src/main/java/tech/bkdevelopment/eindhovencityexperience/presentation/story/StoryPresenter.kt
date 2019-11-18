@@ -22,6 +22,10 @@ class StoryPresenter @Inject constructor(
         navigator.navigateToAudioPlayer()
     }
 
+    override fun onBackPressedLaunchedFromNotification(tourId: String, launchedFromNotification: Boolean) {
+        navigator.navigateToMap(tourId,launchedFromNotification)
+    }
+
     override fun stopPresenting() {
         disposable?.dispose()
     }

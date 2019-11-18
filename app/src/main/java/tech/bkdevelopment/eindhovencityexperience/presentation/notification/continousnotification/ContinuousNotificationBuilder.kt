@@ -31,10 +31,10 @@ class ContinuousNotificationBuilder @Inject constructor() {
 
         if (continuousNotification.isUnlocked) {
             largeIcon = context.getDrawable(R.drawable.ic_lock_open_green)
-            intent = StoryActivity.createIntent(context, continuousNotification.story)
+            intent = StoryActivity.createIntent(context, continuousNotification.tourId,continuousNotification.story,true)
         } else {
             largeIcon = context.getDrawable(R.drawable.ic_lock_outline_black)
-            intent = MapActivity.createIntent(context, continuousNotification.tourId)
+            intent = MapActivity.createIntent(context, continuousNotification.tourId, true)
         }
 
         val pendingIntent = PendingIntent.getActivity(

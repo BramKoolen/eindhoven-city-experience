@@ -36,10 +36,14 @@ class MapPresenter @Inject constructor(
         view.checkLocationPermissions()
     }
 
+    override fun onBackPressedLaunchedFromNotification(tourId: String, launchedFromNotification: Boolean) {
+       navigator.navigateToTourDetail(tourId,launchedFromNotification)
+    }
+
     override fun onStoryClicked(story: StoryViewModel) {
         when (view.tour?.state) {
             TourState.STARTED -> isCloseEnoughToStory(story)
-            TourState.DONE -> navigator.navigateToStory(story)
+            TourState.DONE -> navigator.navigateToStory(story,false)
             TourState.TODO -> view.showStartTourDialog()
             TourState.STOPPED -> view.showStartTourDialog()
         }
@@ -183,7 +187,7 @@ class MapPresenter @Inject constructor(
 
     private fun isCloseEnoughToStory(story: StoryViewModel) {
         if ((story.distanceToCurrentLocation <= DISTANCE_TO_UNLOCK_STORY) || story.completed) {
-            navigator.navigateToStory(story)
+            navigator.navigateToStory(story, false)
         } else {
             view.showNotCloseEnoughToStoryDialog()
         }

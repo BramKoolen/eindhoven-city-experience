@@ -13,11 +13,13 @@ interface StoryContract {
 
         fun startPresenting()
         fun onMediaItemClicked(mediaItem: MediaViewModel)
+        fun onBackPressedLaunchedFromNotification(tourId: String, launchedFromNotification: Boolean)
         fun stopPresenting()
     }
 
     interface Navigator {
 
+        fun navigateToMap(tourId: String, launchedFromNotification: Boolean)
         fun navigateToAudioPlayer()
         fun navigateToPhotoViewer()
         fun navigateToVideoPlayer()

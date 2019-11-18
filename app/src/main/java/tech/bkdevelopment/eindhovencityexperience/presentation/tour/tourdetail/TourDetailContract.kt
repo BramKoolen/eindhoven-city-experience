@@ -20,6 +20,7 @@ interface TourDetailContract {
     interface Presenter {
 
         fun startPresenting()
+        fun onBackPressedLaunchedFromNotification()
         fun onStartStopTourButtonClicked()
         fun onMapButtonClicked()
         fun onDialogSettingsButtonClicked()
@@ -31,7 +32,8 @@ interface TourDetailContract {
 
     interface Navigator {
 
-        fun navigateToMap(tour: TourViewModel)
+        fun navigateToTourList()
+        fun navigateToMap(tour: TourViewModel, launchedFromNotification: Boolean)
         fun navigateToPermissionSettings()
     }
 }
