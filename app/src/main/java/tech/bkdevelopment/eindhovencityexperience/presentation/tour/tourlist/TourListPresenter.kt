@@ -33,7 +33,7 @@ class TourListPresenter @Inject constructor(
 
     override fun onTourClicked(tourViewModel: TourViewModel) {
         if(!isServiceRunning(ContinuousNotificationService::class.java) || tourViewModel.state == TourState.STARTED) {
-            navigator.navigateToTourDetails(tourViewModel)
+            navigator.navigateToTourDetails(tourViewModel, false)
         }
         else{
             view.showCantStartTwoToursError()

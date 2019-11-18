@@ -80,6 +80,14 @@ class MapActivity : DaggerAppCompatActivity(), OnMapReadyCallback, MapContract.V
         mapFloatingCurrentLocationButton.setOnClickListener { presenter.onCurrentLocationButtonClicked() }
     }
 
+    override fun onBackPressed() {
+        if (intent.getBooleanExtra(LAUNCH_FROM_NOTIFICATION_EXTRA, false)) {
+            presenter.onBackPressedLaunchedFromNotification(tourId!!,true)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     private fun setupStoryCards() {
         mapStoryCardsRecycler.adapter = storyCardAdapter
 
@@ -335,10 +343,16 @@ class MapActivity : DaggerAppCompatActivity(), OnMapReadyCallback, MapContract.V
     companion object {
 
         private const val TOUR_ID_EXTRA = "intentTourIdExtra"
+        private const val LAUNCH_FROM_NOTIFICATION_EXTRA = "intentLaunchFromNotificationExtra"
 
-        fun createIntent(context: Context, tourId: String): Intent {
+        fun createIntent(
+            context: Context,
+            tourId: String,
+            launchFromNotification: Boolean
+        ): Intent {
             return Intent(context, MapActivity::class.java).apply {
                 putExtra(TOUR_ID_EXTRA, tourId)
+                putExtra(LAUNCH_FROM_NOTIFICATION_EXTRA, launchFromNotification)
             }
         }
     }

@@ -26,6 +26,6 @@ interface TourListContract {
     interface Navigator {
 
         fun navigateToAboutThisApp()
-        fun navigateToTourDetails(tourViewModel: TourViewModel)
+        fun navigateToTourDetails(tourViewModel: TourViewModel, launchedFromNotification: Boolean)
     }
 }

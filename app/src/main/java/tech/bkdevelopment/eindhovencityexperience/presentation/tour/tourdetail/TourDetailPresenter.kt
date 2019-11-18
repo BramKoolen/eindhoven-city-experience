@@ -36,6 +36,10 @@ class TourDetailPresenter @Inject constructor(
 
     }
 
+    override fun onBackPressedLaunchedFromNotification() {
+        navigator.navigateToTourList()
+    }
+
     override fun onStartStopTourButtonClicked() {
         if (view.tour?.state != TourState.STARTED) {
             view.checkLocationPermissions()
@@ -45,7 +49,7 @@ class TourDetailPresenter @Inject constructor(
     }
 
     override fun onMapButtonClicked() {
-        view.tour?.let { navigator.navigateToMap(it) }
+        view.tour?.let { navigator.navigateToMap(it, false) }
     }
 
     override fun onDialogSettingsButtonClicked() {
@@ -137,7 +141,7 @@ class TourDetailPresenter @Inject constructor(
                                 activity, tour
                             )
                         )
-                        navigator.navigateToMap(tour)
+                        navigator.navigateToMap(tour, false)
                     } else {
                         view.showTourState(TourState.STOPPED)
                         view.tour?.state = TourState.STOPPED

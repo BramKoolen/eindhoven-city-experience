@@ -53,6 +53,13 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
+    override fun onBackPressed() {
+        if (intent.getBooleanExtra(LAUNCH_FROM_NOTIFICATION_EXTRA, false)) {
+            presenter.onBackPressedLaunchedFromNotification()
+        } else {
+            super.onBackPressed()
+        }
+    }
 
     private fun fillTourDetailLayout() {
         Glide
@@ -241,10 +248,16 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
     companion object {
 
         private const val TOUR_ID_EXTRA = "intentTourIdExtra"
+        private const val LAUNCH_FROM_NOTIFICATION_EXTRA = "intentLaunchFromNotificationExtra"
 
-        fun createIntent(context: Context, tourId: String): Intent {
+        fun createIntent(
+            context: Context,
+            tourId: String,
+            launchFromNotification: Boolean
+        ): Intent {
             return Intent(context, TourDetailActivity::class.java).apply {
                 putExtra(TOUR_ID_EXTRA, tourId)
+                putExtra(LAUNCH_FROM_NOTIFICATION_EXTRA, launchFromNotification)
             }
         }
     }

@@ -25,6 +25,7 @@ interface MapContract {
     interface Presenter {
 
         fun startPresenting()
+        fun onBackPressedLaunchedFromNotification(tourId: String, launchedFromNotification: Boolean)
         fun onStoryClicked(story: StoryViewModel)
         fun onCurrentLocationButtonClicked()
         fun onStoryCardFocusChanged(position: Int)
@@ -37,7 +38,8 @@ interface MapContract {
 
     interface Navigator {
 
-        fun navigateToStory(story: StoryViewModel)
+        fun navigateToTourDetail(tourId: String, launchedFromNotification: Boolean)
+        fun navigateToStory(story: StoryViewModel, launchedFromNotification: Boolean)
         fun navigateToPermissionSettings()
     }
 }
