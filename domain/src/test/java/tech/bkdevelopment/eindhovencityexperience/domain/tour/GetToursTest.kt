@@ -22,25 +22,25 @@ class GetToursTest {
     lateinit var getTours: GetTours
 
     @Test
-    fun `when executed, return a list with remote tours combined with local tours and sort on tour state en alphabet`(){
+    fun `when executed, return a list with remote tours combined with local tours and sort on tour state and alphabet`(){
         //Given
         val address = Address("","",0.0,0.0)
         val toursUnsorted = listOf(
-            Tour("", "bbb","","","",0, emptyList(),"","",address,address,"", emptyList(),TourState.STOPPED),
-            Tour("", "abc","","","",0, emptyList(),"","",address,address,"", emptyList(),TourState.TODO),
-            Tour("", "ccc","","","",0, emptyList(),"","",address,address,"", emptyList(),TourState.STARTED),
-            Tour("", "aaa","","","",0, emptyList(),"","",address,address,"", emptyList(),TourState.TODO))
+            Tour("", "bbb","","","",emptyList(),"","",address,address,"", emptyList(),TourState.STOPPED),
+            Tour("", "abc","","","",emptyList(),"","",address,address,"", emptyList(),TourState.TODO),
+            Tour("", "ccc","","","",emptyList(),"","",address,address,"", emptyList(),TourState.STARTED),
+            Tour("", "aaa","","","",emptyList(),"","",address,address,"", emptyList(),TourState.TODO))
 
         val toursSorted = listOf(
-            Tour("", "ccc","","","",0, emptyList(),"","",address,address,"", emptyList(),TourState.STARTED),
-            Tour("", "bbb","","","",0, emptyList(),"","",address,address,"", emptyList(),TourState.STOPPED),
-            Tour("", "aaa","","","",0, emptyList(),"","",address,address,"", emptyList(),TourState.TODO),
-            Tour("", "abc","","","",0, emptyList(),"","",address,address,"", emptyList(),TourState.TODO))
+            Tour("", "ccc","","","", emptyList(),"","",address,address,"", emptyList(),TourState.STARTED),
+            Tour("", "bbb","","","",emptyList(),"","",address,address,"", emptyList(),TourState.STOPPED),
+            Tour("", "aaa","","","",emptyList(),"","",address,address,"", emptyList(),TourState.TODO),
+            Tour("", "abc","","","", emptyList(),"","",address,address,"", emptyList(),TourState.TODO))
 
         given(repository.fetchTours()).willReturn(Observable.just(toursUnsorted))
 
         // When -> Then
-        val testObserver = getTours().test()
-        testObserver.assertValue(toursSorted)
+        val test = getTours().test()
+        test.assertValue(toursSorted)
     }
 }
