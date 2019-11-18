@@ -17,6 +17,7 @@ import tech.bkdevelopment.eindhovencityexperience.domain.story.model.Story
 import tech.bkdevelopment.eindhovencityexperience.presentation.notification.continousnotification.ContinuousNotification
 import tech.bkdevelopment.eindhovencityexperience.presentation.notification.continousnotification.ContinuousNotificationBuilder
 import tech.bkdevelopment.eindhovencityexperience.presentation.notification.oudsidegeofencearea.OudsideGeofenceAreaNotificationBuilder
+import tech.bkdevelopment.eindhovencityexperience.presentation.story.StoryMapper
 import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourViewModel
 import timber.log.Timber
 import javax.inject.Inject
@@ -35,6 +36,9 @@ class ContinuousNotificationService : DaggerService() {
     @Inject
     lateinit var getNearestStory: GetNearestStory
 
+    @Inject
+    lateinit var storyMapper: StoryMapper
+
     private var compositeDisposable = CompositeDisposable()
 
     override fun onBind(p0: Intent?): IBinder? {
@@ -51,7 +55,9 @@ class ContinuousNotificationService : DaggerService() {
                     ContinuousNotification(
                         tour!!.title,
                         getString(R.string.continuous_notification_body_placeholder),
-                        false
+                        false,
+                        tour!!.id,
+                        tour!!.stories[0]
                     )
                 )
             )
@@ -68,7 +74,6 @@ class ContinuousNotificationService : DaggerService() {
         val locationProvider = ReactiveLocationProvider(this)
         locationProvider.getUpdatedLocation(request)
             .map { androidLocation: AndroidLocation ->
-                Timber.i("current location: ${androidLocation.latitude} ${androidLocation.longitude}")
                 Location(
                     androidLocation.latitude,
                     androidLocation.longitude
@@ -127,7 +132,9 @@ class ContinuousNotificationService : DaggerService() {
             ContinuousNotification(
                 it,
                 notificationBody,
-                isUnlocked
+                isUnlocked,
+                tour!!.id,
+                storyMapper.mapToStoryViewModel(nearestStory.first)
             )
         }
     }

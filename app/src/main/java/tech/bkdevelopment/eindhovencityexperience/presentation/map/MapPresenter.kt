@@ -103,7 +103,7 @@ class MapPresenter @Inject constructor(
     }
 
     private fun onTourFetched(tour: TourViewModel) {
-        if (tour.stories.any { it.completed }) {
+        if (tour.stories.filter { !it.completed }.isEmpty()) {
             activity.stopService(
                 ContinuousNotificationService.createForegroundServiceIntent(
                     activity,
@@ -182,7 +182,7 @@ class MapPresenter @Inject constructor(
     }
 
     private fun isCloseEnoughToStory(story: StoryViewModel) {
-        if (story.distanceToCurrentLocation <= DISTANCE_TO_UNLOCK_STORY) {
+        if ((story.distanceToCurrentLocation <= DISTANCE_TO_UNLOCK_STORY) || story.completed) {
             navigator.navigateToStory(story)
         } else {
             view.showNotCloseEnoughToStoryDialog()

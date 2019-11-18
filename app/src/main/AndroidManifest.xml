@@ -21,20 +21,22 @@
             android:theme="@style/Base.Eindhoven.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".presentation.tour.tourlist.TourListActivity" />
         <activity
-            android:name="tech.bkdevelopment.eindhovencityexperience.presentation.tour.tourdetail.TourDetailActivity"
+            android:name=".presentation.tour.tourdetail.TourDetailActivity"
             android:theme="@style/Base.Eindhoven.NoActionBar" />
         <activity
             android:name=".presentation.map.MapActivity"
             android:theme="@style/Base.Eindhoven.NoActionBar" />
+        <activity
+            android:name=".presentation.story.StoryActivity"
+            android:theme="@style/Base.Eindhoven.NoActionBar" />
 
         <service
-            android:name="tech.bkdevelopment.eindhovencityexperience.presentation.notification.ContinuousNotificationService"
+            android:name=".presentation.notification.ContinuousNotificationService"
             android:enabled="true"
             android:exported="true" />
 
@@ -42,4 +44,5 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDYgGzwSMsCGi2dA4Z8mblyQSSmGjw5j0U" />
     </application>
+
 </manifest>

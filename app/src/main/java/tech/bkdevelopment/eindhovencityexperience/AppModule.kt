@@ -9,7 +9,9 @@ import dagger.Module
 import dagger.Provides
 import tech.bkdevelopment.eindhovencityexperience.data.generic.dagger.DataContext
 import tech.bkdevelopment.eindhovencityexperience.data.generic.room.RoomEceDatabase
+import tech.bkdevelopment.eindhovencityexperience.data.story.RoomStoryRepository
 import tech.bkdevelopment.eindhovencityexperience.data.tour.ContentfulRoomTourRepository
+import tech.bkdevelopment.eindhovencityexperience.domain.story.data.StoryRepository
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.data.TourRepository
 import tech.bkdevelopment.eindhovencityexperience.generic.dagger.AppContext
 import javax.inject.Singleton
@@ -39,5 +41,8 @@ class AppModule {
 
         @Binds
         fun bindTourRepository(contentfulRoomTourRepository: ContentfulRoomTourRepository): TourRepository
+
+        @Binds
+        fun bindStoryRepository(roomStoryRepository: RoomStoryRepository): StoryRepository
     }
 }

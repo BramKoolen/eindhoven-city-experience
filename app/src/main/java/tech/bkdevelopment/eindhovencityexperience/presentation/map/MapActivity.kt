@@ -27,7 +27,7 @@ import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_map.*
 import tech.bkdevelopment.eindhovencityexperience.R
 import tech.bkdevelopment.eindhovencityexperience.domain.location.model.Location
-import tech.bkdevelopment.eindhovencityexperience.domain.story.model.StoryType
+import tech.bkdevelopment.eindhovencityexperience.domain.story.model.MediaType
 import tech.bkdevelopment.eindhovencityexperience.generic.extension.getBitmapFromVectorDrawable
 import tech.bkdevelopment.eindhovencityexperience.generic.extension.getBitmapFromVectorDrawableResize
 import tech.bkdevelopment.eindhovencityexperience.generic.view.recyclerview.OnSnapPositionChangeListener
@@ -50,7 +50,9 @@ class MapActivity : DaggerAppCompatActivity(), OnMapReadyCallback, MapContract.V
     override var tour: TourViewModel? = null
         set(value) {
             field = value
-            setupMarkers()
+            if (markers.size == 0) {
+                setupMarkers()
+            }
             updateStories()
         }
 
@@ -98,7 +100,6 @@ class MapActivity : DaggerAppCompatActivity(), OnMapReadyCallback, MapContract.V
         map = googleMap
         map?.uiSettings?.isMyLocationButtonEnabled = false
         map?.uiSettings?.isCompassEnabled = false
-
         try {
             map?.setMapStyle(
                 MapStyleOptions.loadRawResourceStyle(
@@ -161,19 +162,19 @@ class MapActivity : DaggerAppCompatActivity(), OnMapReadyCallback, MapContract.V
         val markerIcon: Drawable?
         if (story.completed) {
             markerIcon = when (story.storyType) {
-                StoryType.TEXT -> this.getDrawable(R.drawable.ic_pin_description_disabled)
-                StoryType.PHOTO -> this.getDrawable(R.drawable.ic_pin_photo_disabled)
-                StoryType.AUDIO -> this.getDrawable(R.drawable.ic_pin_audio_disabled)
-                StoryType.VIDEO -> this.getDrawable(R.drawable.ic_pin_play_disabled)
-                StoryType.VR -> this.getDrawable(R.drawable.ic_pin_description_disabled)
+                MediaType.TEXT -> this.getDrawable(R.drawable.ic_pin_description_disabled)
+                MediaType.PHOTO -> this.getDrawable(R.drawable.ic_pin_photo_disabled)
+                MediaType.AUDIO -> this.getDrawable(R.drawable.ic_pin_audio_disabled)
+                MediaType.VIDEO -> this.getDrawable(R.drawable.ic_pin_play_disabled)
+                MediaType.VR -> this.getDrawable(R.drawable.ic_pin_description_disabled)
             }
         } else {
             markerIcon = when (story.storyType) {
-                StoryType.TEXT -> this.getDrawable(R.drawable.ic_pin_description_locked)
-                StoryType.PHOTO -> this.getDrawable(R.drawable.ic_pin_photo_locked)
-                StoryType.AUDIO -> this.getDrawable(R.drawable.ic_pin_audio_locked)
-                StoryType.VIDEO -> this.getDrawable(R.drawable.ic_pin_play_locked)
-                StoryType.VR -> this.getDrawable(R.drawable.ic_pin_description_locked)
+                MediaType.TEXT -> this.getDrawable(R.drawable.ic_pin_description_locked)
+                MediaType.PHOTO -> this.getDrawable(R.drawable.ic_pin_photo_locked)
+                MediaType.AUDIO -> this.getDrawable(R.drawable.ic_pin_audio_locked)
+                MediaType.VIDEO -> this.getDrawable(R.drawable.ic_pin_play_locked)
+                MediaType.VR -> this.getDrawable(R.drawable.ic_pin_description_locked)
             }
         }
         return markerIcon
@@ -185,22 +186,25 @@ class MapActivity : DaggerAppCompatActivity(), OnMapReadyCallback, MapContract.V
     }
 
     override fun updateSelectedMarker(position: Int) {
-        markers[position].setIcon(BitmapDescriptorFactory.fromBitmap(tour?.stories?.get(position)?.let {
-            getStoryMarkerIcon(it)?.let {
-                this.getBitmapFromVectorDrawableResize(it, 150, 164)
-            }
-        }))
+        if (map != null && markers.size != 0) {
+            markers[position].setIcon(BitmapDescriptorFactory.fromBitmap(tour?.stories?.get(position)?.let {
+                getStoryMarkerIcon(it)?.let {
+                    this.getBitmapFromVectorDrawableResize(it, 150, 164)
+                }
+            }))
 
-        markers[selectedMarkerPosition].setIcon(
-            BitmapDescriptorFactory.fromBitmap(
-                tour?.stories?.get(position)?.let {
-                    getStoryMarkerIcon(it)?.let {
-                        this.getBitmapFromVectorDrawableResize(it, 64, 78)
-                    }
-                })
-        )
 
-        selectedMarkerPosition = position
+            markers[selectedMarkerPosition].setIcon(
+                BitmapDescriptorFactory.fromBitmap(
+                    tour?.stories?.get(position)?.let {
+                        getStoryMarkerIcon(it)?.let {
+                            this.getBitmapFromVectorDrawableResize(it, 64, 78)
+                        }
+                    })
+            )
+
+            selectedMarkerPosition = position
+        }
     }
 
     override fun zoomToLocation(location: Location) {

@@ -47,8 +47,8 @@
     <string name="oudside_geofence_area_notification_body">Wil je stoppen met de tour?</string>
     <string name="oudside_geofence_area_notification_channel_name">Afwijking van route</string>
     <string name="oudside_geofence_area_notification_channel_description">Wanneer je locatie afwijkt van de route worden er notificaties verstuurd</string>
-    
-    
+
+
     <!-- map -->
     <string name="map_story_card_distance">Nog %1$s meter lopen</string>
     <string name="map_not_close_enough_to_story_dialog_body">Je bent nog niet dichtbij genoeg om deze story te kunnen openen.</string>
