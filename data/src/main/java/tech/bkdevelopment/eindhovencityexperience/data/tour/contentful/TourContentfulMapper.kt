@@ -4,7 +4,9 @@ import com.contentful.vault.Resource
 import tech.bkdevelopment.eindhovencityexperience.data.generic.contentful.ContentfulSubstring
 import tech.bkdevelopment.eindhovencityexperience.data.generic.contentful.httpsUrl
 import tech.bkdevelopment.eindhovencityexperience.data.story.contentful.StoryContentulMapper
+import tech.bkdevelopment.eindhovencityexperience.domain.story.model.MediaType
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.Address
+import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TextColor
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.Tour
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TourState
 import javax.inject.Inject
@@ -29,12 +31,21 @@ class TourContentfulMapper @Inject constructor(
                 storyContentulMapper.mapToStories(story),
                 extraTourItemText.orEmpty(),
                 extraTourItemIcon?.httpsUrl(),
+                mapToTextColor(progressTextColor),
                 mapToAddress(parkingAddress),
                 mapToAddress(startAddress),
                 contentfulSubstring.subStringContenfulRichTextItem(longDescription.orEmpty()),
                 mapToCafeList(cafes),
                 TourState.TODO
             )
+        }
+    }
+
+    private fun mapToTextColor(textColor: String?): TextColor {
+        return when (textColor?.toLowerCase()) {
+            "black" -> TextColor.BLACK
+            "white" -> TextColor.WHITE
+            else -> TextColor.BLACK
         }
     }
 

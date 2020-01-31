@@ -34,6 +34,10 @@ class TourResponse : Resource() {
 
     @JvmField
     @Field
+    var progressTextColor: String? = null
+
+    @JvmField
+    @Field
     var parkingAddress: Resource? = null
 
     @JvmField

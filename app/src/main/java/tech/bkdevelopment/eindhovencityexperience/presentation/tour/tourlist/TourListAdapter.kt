@@ -6,6 +6,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -14,6 +15,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.list_item_tour_card.view.*
 import tech.bkdevelopment.eindhovencityexperience.R
+import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TextColor
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TourState
 import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourViewModel
 import timber.log.Timber
@@ -96,6 +98,11 @@ class TourListAdapter : RecyclerView.Adapter<TourListAdapter.TourViewHolder>() {
             if (tourViewModel.state == TourState.STARTED || tourViewModel.state == TourState.STOPPED) {
                 tourCardProgressLabel.text = createProgressString(context,tourViewModel)
                 tourCardProgressLabel.visibility = View.VISIBLE
+                when(tourViewModel.textColorProgress){
+                    TextColor.BLACK -> tourCardProgressLabel.setTextColor(ContextCompat.getColor(context,R.color.black))
+                    TextColor.WHITE -> tourCardProgressLabel.setTextColor(ContextCompat.getColor(context,R.color.white))
+                }
+
             }
 
             if (tourViewModel.state == TourState.STARTED) {

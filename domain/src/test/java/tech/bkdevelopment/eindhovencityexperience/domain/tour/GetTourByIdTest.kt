@@ -8,6 +8,7 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.data.TourRepository
+import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TextColor
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.Tour
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TourState
 
@@ -23,7 +24,7 @@ class GetTourByIdTest {
     @Test
     fun `when executed, return tour by id`() {
 
-        val tour = Tour("", "abc", "", "", "", emptyList(), "", "", null, null, "", emptyList(), TourState.TODO)
+        val tour = Tour("", "abc", "", "", "", emptyList(), "", "", TextColor.BLACK, null, null, "", emptyList(), TourState.TODO)
         given(repository.fetchTourById("abc")).willReturn(Observable.just(tour))
 
         val test = getTourById("abc").test()

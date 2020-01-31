@@ -11,6 +11,7 @@ import android.view.View
 import android.view.Window
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.google.android.material.appbar.AppBarLayout
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
@@ -22,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_tour_detail.*
 import kotlinx.android.synthetic.main.view_tour_detail.*
 import tech.bkdevelopment.eindhovencityexperience.R
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TourState
+import tech.bkdevelopment.eindhovencityexperience.generic.view.collapsingtoolbar.AppbarChangeListener
 import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourViewModel
 import javax.inject.Inject
 
@@ -51,6 +53,7 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        setupAppbarLayout()
     }
 
     override fun onBackPressed() {
@@ -155,6 +158,31 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
         return true
     }
 
+    private fun setupAppbarLayout() {
+        tourDetailAppBar.addOnOffsetChangedListener(object : AppbarChangeListener() {
+            override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
+                when(state){
+                    State.EXPANDED -> appbarLayoutExpanded()
+                    State.COLLAPSED -> appbarLayoutCollapsed()
+                    State.IDLE -> appbarLayoutIDLE()
+                    else -> appbarLayoutExpanded()
+                }
+            }
+        })
+    }
+
+    private fun appbarLayoutExpanded(){
+        tourDetailCollapsingToolbar?.title = ""
+    }
+
+    private fun appbarLayoutCollapsed(){
+        tourDetailCollapsingToolbar?.title = tour?.title
+    }
+
+    private fun appbarLayoutIDLE(){
+        tourDetailCollapsingToolbar?.title = ""
+    }
+
     override fun showTourState(tourState: TourState) {
         if (tourState == TourState.STARTED) {
             tourDetailFloatingButton.setImageResource(R.drawable.ic_stop_black)
@@ -213,6 +241,8 @@ class TourDetailActivity : DaggerAppCompatActivity(), TourDetailContract.View {
         buttonNo.setOnClickListener { onDialogStopTourButtonClicked(dialog) }
         dialog.show()
     }
+
+
 
     private fun onDialogStopTourButtonClicked(dialog: Dialog) {
         dialog.dismiss()

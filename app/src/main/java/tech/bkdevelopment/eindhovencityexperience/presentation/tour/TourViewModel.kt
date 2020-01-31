@@ -2,6 +2,7 @@ package tech.bkdevelopment.eindhovencityexperience.presentation.tour
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TextColor
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TourState
 import tech.bkdevelopment.eindhovencityexperience.presentation.story.StoryViewModel
 
@@ -17,6 +18,7 @@ data class TourViewModel(
     var stories: List<StoryViewModel>,
     val extraTourItemLabel: String,
     val extraTourItemIconUrl: String?,
+    val textColorProgress: TextColor,
     val parkingAddress: AddressViewModel?,
     val startAddress: AddressViewModel?,
     val longDescription: String,

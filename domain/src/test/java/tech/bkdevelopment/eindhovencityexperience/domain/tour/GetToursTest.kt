@@ -9,6 +9,7 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.data.TourRepository
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.Address
+import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TextColor
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.Tour
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TourState
 
@@ -26,16 +27,16 @@ class GetToursTest {
         //Given
         val address = Address("","",0.0,0.0)
         val toursUnsorted = listOf(
-            Tour("", "bbb","","","",emptyList(),"","",address,address,"", emptyList(),TourState.STOPPED),
-            Tour("", "abc","","","",emptyList(),"","",address,address,"", emptyList(),TourState.TODO),
-            Tour("", "ccc","","","",emptyList(),"","",address,address,"", emptyList(),TourState.STARTED),
-            Tour("", "aaa","","","",emptyList(),"","",address,address,"", emptyList(),TourState.TODO))
+            Tour("", "bbb","","","",emptyList(),"","",TextColor.BLACK,address,address,"", emptyList(),TourState.STOPPED),
+            Tour("", "abc","","","",emptyList(),"","",TextColor.BLACK,address,address,"", emptyList(),TourState.TODO),
+            Tour("", "ccc","","","",emptyList(),"","",TextColor.BLACK,address,address,"", emptyList(),TourState.STARTED),
+            Tour("", "aaa","","","",emptyList(),"","",TextColor.BLACK,address,address,"", emptyList(),TourState.TODO))
 
         val toursSorted = listOf(
-            Tour("", "ccc","","","", emptyList(),"","",address,address,"", emptyList(),TourState.STARTED),
-            Tour("", "bbb","","","",emptyList(),"","",address,address,"", emptyList(),TourState.STOPPED),
-            Tour("", "aaa","","","",emptyList(),"","",address,address,"", emptyList(),TourState.TODO),
-            Tour("", "abc","","","", emptyList(),"","",address,address,"", emptyList(),TourState.TODO))
+            Tour("", "ccc","","","", emptyList(),"","",TextColor.BLACK,address,address,"", emptyList(),TourState.STARTED),
+            Tour("", "bbb","","","",emptyList(),"","",TextColor.BLACK,address,address,"", emptyList(),TourState.STOPPED),
+            Tour("", "aaa","","","",emptyList(),"","",TextColor.BLACK,address,address,"", emptyList(),TourState.TODO),
+            Tour("", "abc","","","", emptyList(),"","",TextColor.BLACK,address,address,"", emptyList(),TourState.TODO))
 
         given(repository.fetchTours()).willReturn(Observable.just(toursUnsorted))
 

@@ -29,6 +29,7 @@ class TourMapper @Inject constructor(
             storyMapper.mapToStoryViewModels(tour.stories),
             tour.extraTourItemLabel,
             tour.extraTourItemIconUrl,
+            tour.progressTextColor,
             mapToAddressViewModel(tour.parkingAddress),
             mapToAddressViewModel(tour.startAddress),
             tour.longDescription,
