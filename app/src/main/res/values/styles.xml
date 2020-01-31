@@ -1,0 +1,5 @@
+<resources>
+    <style name="Base.Eindhoven.Dialog" parent="Base.Eindhoven">
+        <item name="android:background">?attr/colorSurface</item>
+    </style>
+</resources>

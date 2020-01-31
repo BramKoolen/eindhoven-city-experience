@@ -1,0 +1,78 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            buildConfigField "String", "SPACE_ID", "\"kv1tx2taa3oe\""
+            buildConfigField "String", "SPACE_ACCESS_TOKEN", "\"hMtSF-PTd1mkV5EPdoAgEj-bXmKO0c85BgKheprqHiM\""
+        }
+        qaTest {
+            buildConfigField "String", "SPACE_ID", "\"kv1tx2taa3oe\""
+            buildConfigField "String", "SPACE_ACCESS_TOKEN", "\"hMtSF-PTd1mkV5EPdoAgEj-bXmKO0c85BgKheprqHiM\""
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            buildConfigField "String", "SPACE_ID", "\"kv1tx2taa3oe\""
+            buildConfigField "String", "SPACE_ACCESS_TOKEN", "\"hMtSF-PTd1mkV5EPdoAgEj-bXmKO0c85BgKheprqHiM\""
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation project(':domain')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    //@Inject
+    implementation "javax.inject:javax.inject:1"
+
+    //Reactive
+    implementation "io.reactivex.rxjava2:rxjava:$reactive_x_version_java"
+    implementation "io.reactivex.rxjava2:rxkotlin:$reactive_x_version_kotlin"
+    implementation "io.reactivex.rxjava2:rxandroid:$reactive_x_version_android"
+
+    //Dagger
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+    implementation "com.google.dagger:dagger:$dagger_version"
+    implementation "com.google.dagger:dagger-android:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+
+    //Timber
+    implementation "com.jakewharton.timber:timber:$timber_version"
+
+    //Room
+    api "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
+    implementation "com.google.firebase:firebase-core:$firebase_core_version"
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+
+    //Contentful
+    kapt("com.contentful.vault:compiler:$contentful_version") {
+        exclude group: 'com.google.guava', module: 'guava'
+    }
+    kapt "com.contentful.vault:core:$contentful_version"
+    api "com.contentful.vault:core:$contentful_version"
+
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"

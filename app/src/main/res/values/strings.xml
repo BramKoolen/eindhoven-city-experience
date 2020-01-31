@@ -1,0 +1,61 @@
+<resources>
+    <!--Generic -->
+    <string name="app_name">Eindhoven city experience</string>
+    <string name="dialog_default_title">Whoops!</string>
+    <string name="dialog_default_close">Sluiten</string>
+
+    <!-- tour list -->
+    <string name="tour_list_sub_title">De beste interactieve \n stadstours door Eindhoven</string>
+    <string name="tour_list_dialog_body">Je kunt niet twee tours tegelijk doen. Stop eerst de andere tour voordat je deze kunt starten.</string>
+    <string name="tour_list_progress_time">%1$s minuten</string>
+    <string name="tour_list_progress_distance">%1$s meter</string>
+    <string name="tour_list_progress_stories">%1$s stories</string>
+
+    <!-- internet error state -->
+    <string name="internet_error_state_try_again_button">Probeer opnieuw</string>
+    <string name="internet_error_state_title">Whoops!</string>
+    <string name="internet_error_state_body">Er is geen internetverbinding. \n Controleer je verbinding en probeer opnieuw.</string>
+
+    <!-- tour details -->
+    <string name="tour_detail_detail_card_title">Details</string>
+    <string name="tour_detail_address_card_title">start adres</string>
+    <string name="tour_detail_description_card_title">omschrijving</string>
+    <string name="tour_detail_detail_card_cafes">%1$s Cafes op deze route</string>
+    <string name="tour_detail_detail_card_time">%1$s minuten resterend</string>
+    <string name="tour_detail_detail_card_distance">%1$s meter resterend</string>
+    <string name="tour_detail_detail_stories">%1$s stories resterend</string>
+    <string name="tour_detail_detail_show_on_map">Weergeven op kaart</string>
+
+    <!-- Tour details dialog -->
+    <string name="tour_detail_stop_tour_dialog_title">Tour wordt opgeslagen.</string>
+    <string name="tour_detail_stop_tour_dialog_body">Jammer dat je stopt. Gelukkig slaan wij je voortgang op zodat je de volgende keer weer verder kunt gaan.</string>
+    <string name="tour_detail_stop_tour_dialog_stop">Stoppen</string>
+    <string name="tour_detail_stop_tour_dialog_continue">Doorgaan</string>
+    <string name="tour_detail_permission_denied_dailog_body">Om gebruik te kunnen maken van de app, hebben we je locatie gegevens nodig.</string>
+    <string name="tour_detail_permission_denied_dialog_settings">Instellingen</string>
+    <string name="tour_detail_start_tour_error_dialog_body">Helaas je kunt deze tour nog niet starten. De afstand tot de tour is nog te groot.</string>
+
+    <!-- continuous notifications -->
+    <string name="continuous_notification_body_placeholder">begin te lopen naar de dichtstbijzijnde story</string>
+    <string name="continuous_notification_body_locked">Nog %1$s meter lopen</string>
+    <string name="continuous_notification_body_unlocked">Open story</string>
+    <string name="continuous_notification_channel_name">Afstand tot story </string>
+    <string name="continuous_notification_channel_description">Bekijk je afstand tot de dichtstbijzijnde locactie. Daarnaast zie je ook af je dicht bij genoeg bent op de story te openen.</string>
+
+    <!-- oudside geofence area notifications -->
+    <string name="oudside_geofence_area_notification_title">Afwijking van de route.</string>
+    <string name="oudside_geofence_area_notification_body">Wil je stoppen met de tour?</string>
+    <string name="oudside_geofence_area_notification_channel_name">Afwijking van route</string>
+    <string name="oudside_geofence_area_notification_channel_description">Wanneer je locatie afwijkt van de route worden er notificaties verstuurd</string>
+
+
+    <!-- map -->
+    <string name="map_story_card_distance">Nog %1$s meter lopen</string>
+    <string name="map_not_close_enough_to_story_dialog_body">Je bent nog niet dichtbij genoeg om deze story te kunnen openen.</string>
+    <string name="map_tour_finished_dialog_title">Klaar!</string>
+    <string name="map_tour_finished_dialog_body">Dit was de laatste story van deze tour. Je kunt de story opnieuw bekijken of de tour afsluiten.</string>
+    <string name="map_start_tour_title">Start je tour!</string>
+    <string name="map_start_tour_body">Om deze story te openen moet je eerst de tour starten.</string>
+    <string name="map_start_tour_starten_button">Start tour</string>
+
+</resources>

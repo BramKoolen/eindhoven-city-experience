@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="tech.bkdevelopment.eindhovencityexperience">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:name=".EceApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Base.Eindhoven"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".presentation.splash.SplashActivity"
+            android:theme="@style/Base.Eindhoven.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".presentation.tour.tourlist.TourListActivity" />
+        <activity
+            android:name=".presentation.tour.tourdetail.TourDetailActivity"
+            android:theme="@style/Base.Eindhoven.NoActionBar" />
+        <activity
+            android:name=".presentation.map.MapActivity"
+            android:theme="@style/Base.Eindhoven.NoActionBar" />
+        <activity
+            android:name=".presentation.story.StoryActivity"
+            android:theme="@style/Base.Eindhoven.NoActionBar" />
+
+        <service
+            android:name=".presentation.notification.ContinuousNotificationService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDYgGzwSMsCGi2dA4Z8mblyQSSmGjw5j0U" />
+    </application>
+
+</manifest>
