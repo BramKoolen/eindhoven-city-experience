@@ -11,6 +11,7 @@ data class Tour(
     val stories: List<Story>,
     val extraTourItemLabel: String,
     val extraTourItemIconUrl: String?,
+    val progressTextColor: TextColor,
     val parkingAddress: Address?,
     val startAddress: Address?,
     val longDescription: String,

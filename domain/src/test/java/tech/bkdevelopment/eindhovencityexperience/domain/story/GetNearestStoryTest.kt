@@ -11,6 +11,7 @@ import tech.bkdevelopment.eindhovencityexperience.domain.location.model.Location
 import tech.bkdevelopment.eindhovencityexperience.domain.story.model.MediaType
 import tech.bkdevelopment.eindhovencityexperience.domain.story.model.Story
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.GetTourById
+import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TextColor
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.Tour
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.model.TourState
 
@@ -43,6 +44,7 @@ class GetNearestStoryTest {
             ),
             "",
             "",
+            TextColor.BLACK,
             null,
             null,
             "",

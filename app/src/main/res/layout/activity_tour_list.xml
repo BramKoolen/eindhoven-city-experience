@@ -55,6 +55,7 @@
                     android:layout_marginTop="@dimen/grid_2"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@+id/tourListSubTitle"
+                    tools:layout_editor_absoluteX="0dp"
                     tools:listitem="@layout/list_item_tour_card" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
