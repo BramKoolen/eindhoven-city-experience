@@ -1,12 +1,13 @@
 package tech.bkdevelopment.eindhovencityexperience.presentation.map
 
 import android.app.Activity
-import com.google.android.gms.location.LocationRequest
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
-import pl.charmas.android.reactivelocation2.ReactiveLocationProvider
+import tech.bkdevelopment.eindhovencityexperience.domain.location.GetLastKnownLocation
+import tech.bkdevelopment.eindhovencityexperience.domain.location.ObserveCurrentLocation
+import tech.bkdevelopment.eindhovencityexperience.domain.location.StartObserveCurrentLocation
 import tech.bkdevelopment.eindhovencityexperience.domain.location.model.Location
 import tech.bkdevelopment.eindhovencityexperience.domain.story.GetDistanceBetweenTwoLocations
 import tech.bkdevelopment.eindhovencityexperience.domain.tour.GetTourById
@@ -18,7 +19,6 @@ import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourMapper
 import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourViewModel
 import timber.log.Timber
 import javax.inject.Inject
-import android.location.Location as AndroidLocation
 
 class MapPresenter @Inject constructor(
     private val view: MapContract.View,
@@ -27,7 +27,10 @@ class MapPresenter @Inject constructor(
     private val getTourById: GetTourById,
     private val tourMapper: TourMapper,
     private val getDistanceBetweenTwoLocations: GetDistanceBetweenTwoLocations,
-    private val updateTourStatus: UpdateTourStatus
+    private val updateTourStatus: UpdateTourStatus,
+    private val observeCurrentLocation: ObserveCurrentLocation,
+    private val startObserveCurrentLocation: StartObserveCurrentLocation,
+    private val getLastKnownLocation: GetLastKnownLocation
 ) : MapContract.Presenter {
 
     private var compositeDisposable = CompositeDisposable()
@@ -36,14 +39,17 @@ class MapPresenter @Inject constructor(
         view.checkLocationPermissions()
     }
 
-    override fun onBackPressedLaunchedFromNotification(tourId: String, launchedFromNotification: Boolean) {
-       navigator.navigateToTourDetail(tourId,launchedFromNotification)
+    override fun onBackPressedLaunchedFromNotification(
+        tourId: String,
+        launchedFromNotification: Boolean
+    ) {
+        navigator.navigateToTourDetail(tourId, launchedFromNotification)
     }
 
     override fun onStoryClicked(story: StoryViewModel) {
         when (view.tour?.state) {
             TourState.STARTED -> isCloseEnoughToStory(story)
-            TourState.DONE -> navigator.navigateToStory(story,false)
+            TourState.DONE -> navigator.navigateToStory(story, false)
             TourState.TODO -> view.showStartTourDialog()
             TourState.STOPPED -> view.showStartTourDialog()
         }
@@ -51,6 +57,27 @@ class MapPresenter @Inject constructor(
 
     override fun onCurrentLocationButtonClicked() {
         getCurrentLocation()
+    }
+
+    private fun getCurrentLocation() {
+        getLastKnownLocation.invoke()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::onCurrentLocationFetched, ::onCurrentLocationFailed)
+            .addTo(compositeDisposable)
+    }
+
+    private fun onCurrentLocationFetched(currentLocation: Location) {
+        view.zoomToLocation(
+            Location(
+                currentLocation.lat,
+                currentLocation.long
+            )
+        )
+    }
+
+    private fun onCurrentLocationFailed(throwable: Throwable) {
+        Timber.e(throwable)
     }
 
     override fun onStoryCardFocusChanged(position: Int) {
@@ -62,6 +89,7 @@ class MapPresenter @Inject constructor(
     }
 
     override fun onStartTourClicked() {
+        startObserveCurrentLocation()
         view.tour?.state = TourState.STARTED
         activity.startService(
             ContinuousNotificationService.createForegroundServiceIntent(
@@ -125,46 +153,11 @@ class MapPresenter @Inject constructor(
         Timber.i(throwable)
     }
 
-    private fun getCurrentLocation() {
-        val locationProvider = ReactiveLocationProvider(activity)
-        locationProvider.lastKnownLocation
-            .map { androidLocation: AndroidLocation ->
-                Location(
-                    androidLocation.latitude,
-                    androidLocation.longitude
-                )
-            }
-            .subscribe(::onCurrentLocationFetched, ::onCurrentLocationFailed)
-            .addTo(compositeDisposable)
-    }
-
-    private fun onCurrentLocationFetched(currentLocation: Location) {
-        view.zoomToLocation(
-            Location(
-                currentLocation.lat,
-                currentLocation.long
-            )
-        )
-    }
-
-    private fun onCurrentLocationFailed(throwable: Throwable) {
-        Timber.e(throwable)
-    }
-
     private fun observeCurrentLocation() {
-        val request = LocationRequest.create()
-            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-            .setInterval(LOCATION_UPDATE_INTERVAL)
-
-        val locationProvider = ReactiveLocationProvider(activity)
-        locationProvider.getUpdatedLocation(request)
-            .map { androidLocation: AndroidLocation ->
-                Location(
-                    androidLocation.latitude,
-                    androidLocation.longitude
-                )
-            }
-            .subscribe(::onCurrentLocationUpdateFetched, ::onCurrentLocationUpdateFailed)
+        observeCurrentLocation.invoke()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { onCurrentLocationUpdateFetched(it) }
             .addTo(compositeDisposable)
 
     }
@@ -181,10 +174,6 @@ class MapPresenter @Inject constructor(
         view.updateStories()
     }
 
-    private fun onCurrentLocationUpdateFailed(throwable: Throwable) {
-        Timber.e(throwable)
-    }
-
     private fun isCloseEnoughToStory(story: StoryViewModel) {
         if ((story.distanceToCurrentLocation <= DISTANCE_TO_UNLOCK_STORY) || story.completed) {
             navigator.navigateToStory(story, false)
@@ -196,6 +185,5 @@ class MapPresenter @Inject constructor(
     companion object {
 
         private const val DISTANCE_TO_UNLOCK_STORY = 10
-        private const val LOCATION_UPDATE_INTERVAL: Long = 5000
     }
 }
