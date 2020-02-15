@@ -3,14 +3,13 @@ package tech.bkdevelopment.eindhovencityexperience.presentation.notification
 import android.content.Context
 import android.content.Intent
 import android.os.IBinder
-import com.google.android.gms.location.LocationRequest
 import dagger.android.DaggerService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
-import pl.charmas.android.reactivelocation2.ReactiveLocationProvider
 import tech.bkdevelopment.eindhovencityexperience.R
+import tech.bkdevelopment.eindhovencityexperience.domain.location.ObserveCurrentLocation
 import tech.bkdevelopment.eindhovencityexperience.domain.location.model.Location
 import tech.bkdevelopment.eindhovencityexperience.domain.story.GetNearestStory
 import tech.bkdevelopment.eindhovencityexperience.domain.story.model.Story
@@ -21,7 +20,6 @@ import tech.bkdevelopment.eindhovencityexperience.presentation.story.StoryMapper
 import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourViewModel
 import timber.log.Timber
 import javax.inject.Inject
-import android.location.Location as AndroidLocation
 
 class ContinuousNotificationService : DaggerService() {
 
@@ -38,6 +36,9 @@ class ContinuousNotificationService : DaggerService() {
 
     @Inject
     lateinit var storyMapper: StoryMapper
+
+    @Inject
+    lateinit var observeCurrentLocation: ObserveCurrentLocation
 
     private var compositeDisposable = CompositeDisposable()
 
@@ -67,19 +68,10 @@ class ContinuousNotificationService : DaggerService() {
     }
 
     private fun observeCurrentLocation() {
-        val request = LocationRequest.create()
-            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-            .setInterval(LOCATION_UPDATE_INTERVAL)
-
-        val locationProvider = ReactiveLocationProvider(this)
-        locationProvider.getUpdatedLocation(request)
-            .map { androidLocation: AndroidLocation ->
-                Location(
-                    androidLocation.latitude,
-                    androidLocation.longitude
-                )
-            }
-            .subscribe(::onCurrentLocationUpdateFetched, ::onCurrentLocationUpdateFailed)
+        observeCurrentLocation.invoke()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { onCurrentLocationUpdateFetched(it) }
             .addTo(compositeDisposable)
 
     }
@@ -92,10 +84,6 @@ class ContinuousNotificationService : DaggerService() {
                 .subscribe(::onNearestStoryFetched, ::onNearestStoryFetchedFailed)
                 .addTo(compositeDisposable)
         }
-    }
-
-    private fun onCurrentLocationUpdateFailed(throwable: Throwable) {
-        Timber.e(throwable)
     }
 
     private fun onNearestStoryFetched(nearestStory: Pair<Story, Int>) {
@@ -148,7 +136,6 @@ class ContinuousNotificationService : DaggerService() {
     companion object {
 
         private const val ONGOING_NOTIFICATION_ID = 12345
-        private const val LOCATION_UPDATE_INTERVAL: Long = 500
         private const val DISTANCE_TO_UNLOCK_STORY = 10
         private const val MAX_DISTANCE_TO_STORY = 10000
         private const val WARNING_DISTANCE_TO_STORY = 2500

@@ -105,8 +105,7 @@ dependencies {
     //Permissions
     implementation 'com.karumi:dexter:6.0.0'
 
-    //location
-    implementation 'pl.charmas.android:android-reactive-location2:2.1@aar'
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
-    implementation 'com.google.android.gms:play-services-places:17.0.0'
+    //Google maps
+    implementation "com.google.android.gms:play-services-location:$gms_version"
+    implementation "com.google.android.gms:play-services-places:$gms_version"
 }

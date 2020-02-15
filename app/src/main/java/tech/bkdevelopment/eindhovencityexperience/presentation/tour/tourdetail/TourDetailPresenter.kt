@@ -5,7 +5,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
-import pl.charmas.android.reactivelocation2.ReactiveLocationProvider
+import tech.bkdevelopment.eindhovencityexperience.domain.location.GetLastKnownLocation
+import tech.bkdevelopment.eindhovencityexperience.domain.location.StartObserveCurrentLocation
+import tech.bkdevelopment.eindhovencityexperience.domain.location.StopObserveCurrentLocation
 import tech.bkdevelopment.eindhovencityexperience.domain.location.model.Location
 import tech.bkdevelopment.eindhovencityexperience.domain.story.GetNearestStory
 import tech.bkdevelopment.eindhovencityexperience.domain.story.model.Story
@@ -17,7 +19,6 @@ import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourMapper
 import tech.bkdevelopment.eindhovencityexperience.presentation.tour.TourViewModel
 import timber.log.Timber
 import javax.inject.Inject
-import android.location.Location as AndroidLocation
 
 class TourDetailPresenter @Inject constructor(
     private val view: TourDetailContract.View,
@@ -26,7 +27,10 @@ class TourDetailPresenter @Inject constructor(
     private val getNearestStory: GetNearestStory,
     private val updateTourStatus: UpdateTourStatus,
     private val getTourById: GetTourById,
-    private val tourMapper: TourMapper
+    private val tourMapper: TourMapper,
+    private val getLastKnownLocation: GetLastKnownLocation,
+    private val startObserveCurrentLocation: StartObserveCurrentLocation,
+    private val stopObserveCurrentLocation: StopObserveCurrentLocation
 ) : TourDetailContract.Presenter {
 
     private var compositeDisposable = CompositeDisposable()
@@ -61,7 +65,7 @@ class TourDetailPresenter @Inject constructor(
     }
 
     override fun onLocationPermissionGranted() {
-        getCurrentLocation()
+        getLastKnownLocation()
     }
 
     override fun onLocationPermissionDenied() {
@@ -89,20 +93,15 @@ class TourDetailPresenter @Inject constructor(
         Timber.i(throwable)
     }
 
-    private fun getCurrentLocation() {
-        val locationProvider = ReactiveLocationProvider(activity)
-        locationProvider.lastKnownLocation
-            .map { androidLocation: AndroidLocation ->
-                Location(
-                    androidLocation.latitude,
-                    androidLocation.longitude
-                )
-            }
-            .subscribe(::onCurrentLocationFetched, ::onCurrentLocationFailed)
+    private fun getLastKnownLocation() {
+        getLastKnownLocation.invoke()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::onLastKnownLocationFetched, ::onLastKnownLocationFailed)
             .addTo(compositeDisposable)
     }
 
-    private fun onCurrentLocationFetched(currentLocation: Location) {
+    private fun onLastKnownLocationFetched(currentLocation: Location) {
         view.tour?.id?.let {
             getNearestStory(it, currentLocation)
                 .subscribeOn(Schedulers.io())
@@ -112,7 +111,7 @@ class TourDetailPresenter @Inject constructor(
         }
     }
 
-    private fun onCurrentLocationFailed(throwable: Throwable) {
+    private fun onLastKnownLocationFailed(throwable: Throwable) {
         Timber.e(throwable)
     }
 
@@ -136,6 +135,7 @@ class TourDetailPresenter @Inject constructor(
                     if (tourState == TourState.STARTED) {
                         view.showTourState(TourState.STARTED)
                         view.tour?.state = TourState.STARTED
+                        startObserveCurrentLocation()
                         activity.startService(
                             ContinuousNotificationService.createForegroundServiceIntent(
                                 activity, tour
@@ -145,6 +145,7 @@ class TourDetailPresenter @Inject constructor(
                     } else {
                         view.showTourState(TourState.STOPPED)
                         view.tour?.state = TourState.STOPPED
+                        stopObserveCurrentLocation()
                         activity.stopService(
                             ContinuousNotificationService.createForegroundServiceIntent(
                                 activity, tour

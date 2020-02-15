@@ -70,8 +70,10 @@ dependencies {
     kapt "com.contentful.vault:core:$contentful_version"
     api "com.contentful.vault:core:$contentful_version"
 
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
-
+    //location
+    implementation 'pl.charmas.android:android-reactive-location2:2.1@aar'
+    implementation "com.google.android.gms:play-services-location:$gms_version"
+    implementation "com.google.android.gms:play-services-places:$gms_version"
 }
 
 sourceCompatibility = "7"
